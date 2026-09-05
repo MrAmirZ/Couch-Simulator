@@ -5,6 +5,7 @@ import copy
 from Players import players
 import Match as mtc
 import Calendar as cal
+import Training as Train
 
 Game=tk.Tk()
 Game.title('Couch Simulatur')
@@ -291,6 +292,7 @@ def main_menu():
     global Teams,Game_Calendar
     Squad_Frame1.place_forget()
     Squad_Frame2.place_forget()
+    Training_Frame.place_forget()
     Tactic_Team_Frame1.place_forget()
     Statistics_Goal_Frame.place_forget()
     Calendar_Frame.place_forget()
@@ -769,7 +771,7 @@ def play_match():
             away=Game_Player[s4.get()][i[1]]
             L_Home_Game.config(text=i[0])
             L_Away_Game.config(text=i[1])
-            match=mtc.match_engine(home,away)
+            match=mtc.Match_Engine(home,away)
 def start_match():
     Start_Game_Btn.place_forget()
     if match.pause==True:
@@ -861,9 +863,16 @@ Back_Bench_To_Starting_Squad=tk.Button(Squad_Frame2,text='Back',font=TEXT_FONT,c
 Back_Menu_Squad1_Btn=tk.Button(Squad_Frame1,text='Back Menu',font=TEXT_FONT,command=main_menu,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Back_Menu_Squad2_Btn=tk.Button(Squad_Frame2,text='Back Menu',font=TEXT_FONT,command=main_menu,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_Choose_Training=tk.Label(Training_Frame,text='Choose Training',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
-Physical_Training_Btn=tk.Button(Training_Frame,text='Physical \n\n + Physical',font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
-Attacking_Training_Btn=tk.Button(Training_Frame,text='Attacking \n\n + Shotting',font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
-Passing_Training_Btn=tk.Button(Training_Frame,text='Passing \n\n + Passing',font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+Physical_Training_Btn=tk.Button(Training_Frame,text='Physical \n\n+ Physical',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
+Shooting_Training_Btn=tk.Button(Training_Frame,text='Shooting \n\n+ Shooting',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
+Passing_Training_Btn=tk.Button(Training_Frame,text='Passing \n\n+ Passing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
+Pace_Training_Btn=tk.Button(Training_Frame,text=f'Pace \n\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
+Dribbling_Training_Btn=tk.Button(Training_Frame,text=f'Dribbling \n\n+ Dribling',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
+Defending_Training_Btn=tk.Button(Training_Frame,text=f'Defending \n\n+ Defenfing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
+Attacking_Training_Btn=tk.Button(Training_Frame,text=f'Attacking \n\n+ Shooting\n+ Dribbling\n+ Passing\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
+Defensive_Training_Btn=tk.Button(Training_Frame,text=f'Defensive \n\n+ Defending\n+ Physical\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6)
+Balance_Training_Btn=tk.Button(Training_Frame,text=f'Balance \n\n+ All',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6)
+Back_Training_Menu_Btn=tk.Button(Training_Frame,text=f'Back',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=main_menu)
 Squad_Menu_Btn.place(x=50,y=700)
 Transfer_Market_Menu_Btn.place(x=200,y=700)
 Training_Menu_Btn.place(x=450,y=700)
@@ -876,10 +885,17 @@ Bench_Squad_Btn.place(x=1320,y=730)
 Back_Bench_To_Starting_Squad.place(x=1320,y=730)
 Back_Menu_Squad1_Btn.place(x=100,y=730)
 Back_Menu_Squad2_Btn.place(x=100,y=730)
-L_Choose_Training.place(x=600,y=150)
-Physical_Training_Btn.place(x=200,y=250)
-Attacking_Training_Btn.place(x=600,y=250)
-Passing_Training_Btn.place(x=1000,y=250)
+L_Choose_Training.place(x=620,y=70)
+Physical_Training_Btn.place(x=220,y=170)
+Shooting_Training_Btn.place(x=620,y=170)
+Passing_Training_Btn.place(x=1020,y=170)
+Pace_Training_Btn.place(x=220,y=320)
+Dribbling_Training_Btn.place(x=620,y=320)
+Defending_Training_Btn.place(x=1020,y=320)
+Attacking_Training_Btn.place(x=220,y=470)
+Defensive_Training_Btn.place(x=620,y=470)
+Balance_Training_Btn.place(x=1020,y=470)
+Back_Training_Menu_Btn.place(x=1320,y=730)
 L_PlayerInfo=tk.Label(Player_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Back_Player_Btn=tk.Button(Player_Frame,text='Back',font=TEXT_FONT,command=back_player,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_PlayerInfo.place(x=650,y=20)

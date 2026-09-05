@@ -1,6 +1,6 @@
 import random
 
-class match_engine:
+class Match_Engine:
     def __init__(self,home,away):
         self.home=home
         self.away=away
