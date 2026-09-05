@@ -34,6 +34,7 @@ Squad_Frame1=tk.Frame(Game,bg=MENU_BG)
 Squad_Frame2=tk.Frame(Game,bg=MENU_BG)
 Player_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Frame=tk.Frame(Game,bg=MENU_BG)
+Training_Mode_Frame=tk.Frame(Game,bg=MENU_BG)
 Tactic_Team_Frame1=tk.Frame(Game,bg="#00CE1F")
 Tactic_Team_Frame2=tk.Frame(Game,bg="#00CE1F")
 Tactic_Separator_Frame=tk.Frame(Tactic_Team_Frame2,bg="#3f3f46")
@@ -144,6 +145,7 @@ Combo_Fast_Break_Runner=[]
 Combo_Ball_Winner=[]
 Selected=None
 Currect_Formation='4-3-3'
+Training_Type=''
 
 def toggle_fullscreen(event=None):
     global Fullscreen
@@ -480,6 +482,12 @@ def show_bench():
         Player_Bench_Place.place(x=tbx, y=tby)
         Player_Bench_Place_List.append(Player_Bench_Place)
         tbx +=150
+
+def choosing_train(train_type):
+    global Training_Type
+    Training_Type=train_type
+    Training_Frame.place_forget()
+    Training_Mode_Frame.place(x=0,y=0,width=1920,height=1080)
 
 def show_overall_team(starting_players,formation):
     total=0
@@ -863,16 +871,20 @@ Back_Bench_To_Starting_Squad=tk.Button(Squad_Frame2,text='Back',font=TEXT_FONT,c
 Back_Menu_Squad1_Btn=tk.Button(Squad_Frame1,text='Back Menu',font=TEXT_FONT,command=main_menu,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Back_Menu_Squad2_Btn=tk.Button(Squad_Frame2,text='Back Menu',font=TEXT_FONT,command=main_menu,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_Choose_Training=tk.Label(Training_Frame,text='Choose Training',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
-Physical_Training_Btn=tk.Button(Training_Frame,text='Physical \n\n+ Physical',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
-Shooting_Training_Btn=tk.Button(Training_Frame,text='Shooting \n\n+ Shooting',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
-Passing_Training_Btn=tk.Button(Training_Frame,text='Passing \n\n+ Passing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
-Pace_Training_Btn=tk.Button(Training_Frame,text=f'Pace \n\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
-Dribbling_Training_Btn=tk.Button(Training_Frame,text=f'Dribbling \n\n+ Dribling',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
-Defending_Training_Btn=tk.Button(Training_Frame,text=f'Defending \n\n+ Defenfing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
-Attacking_Training_Btn=tk.Button(Training_Frame,text=f'Attacking \n\n+ Shooting\n+ Dribbling\n+ Passing\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15)
-Defensive_Training_Btn=tk.Button(Training_Frame,text=f'Defensive \n\n+ Defending\n+ Physical\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6)
-Balance_Training_Btn=tk.Button(Training_Frame,text=f'Balance \n\n+ All',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6)
+Physical_Training_Btn=tk.Button(Training_Frame,text='Physical \n\n+ Physical',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('physical'))
+Shooting_Training_Btn=tk.Button(Training_Frame,text='Shooting \n\n+ Shooting',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('shooting'))
+Passing_Training_Btn=tk.Button(Training_Frame,text='Passing \n\n+ Passing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('passing'))
+Pace_Training_Btn=tk.Button(Training_Frame,text=f'Pace \n\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('pace'))
+Dribbling_Training_Btn=tk.Button(Training_Frame,text=f'Dribbling \n\n+ Dribling',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('dribbling'))
+Defending_Training_Btn=tk.Button(Training_Frame,text=f'Defending \n\n+ Defenfing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('defending'))
+Attacking_Training_Btn=tk.Button(Training_Frame,text=f'Attacking \n\n+ Shooting\n+ Dribbling\n+ Passing\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('attacking'))
+Defensive_Training_Btn=tk.Button(Training_Frame,text=f'Defensive \n\n+ Defending\n+ Physical\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_train('defensive'))
+Balance_Training_Btn=tk.Button(Training_Frame,text=f'Balance \n\n+ All',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_train('balance'))
 Back_Training_Menu_Btn=tk.Button(Training_Frame,text=f'Back',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=main_menu)
+L_Choose_Training_Mode=tk.Label(Training_Mode_Frame,text='Choose Training Mode',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+Easy_Mode_Btn=tk.Button(Training_Mode_Frame,text='Easy',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5)
+Medium_Mode_Btn=tk.Button(Training_Mode_Frame,text='Medium',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5)
+Hard_Mode_Btn=tk.Button(Training_Mode_Frame,text='Hard',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5)
 Squad_Menu_Btn.place(x=50,y=700)
 Transfer_Market_Menu_Btn.place(x=200,y=700)
 Training_Menu_Btn.place(x=450,y=700)
@@ -896,6 +908,10 @@ Attacking_Training_Btn.place(x=220,y=470)
 Defensive_Training_Btn.place(x=620,y=470)
 Balance_Training_Btn.place(x=1020,y=470)
 Back_Training_Menu_Btn.place(x=1320,y=730)
+L_Choose_Training_Mode.place(x=590,y=100)
+Easy_Mode_Btn.place(x=200,y=360)
+Medium_Mode_Btn.place(x=600,y=360)
+Hard_Mode_Btn.place(x=1000,y=360)
 L_PlayerInfo=tk.Label(Player_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Back_Player_Btn=tk.Button(Player_Frame,text='Back',font=TEXT_FONT,command=back_player,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_PlayerInfo.place(x=650,y=20)
