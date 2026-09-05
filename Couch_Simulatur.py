@@ -35,6 +35,7 @@ Squad_Frame2=tk.Frame(Game,bg=MENU_BG)
 Player_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Mode_Frame=tk.Frame(Game,bg=MENU_BG)
+Training_Result_Frame=tk.Frame(Game,bg=MENU_BG)
 Tactic_Team_Frame1=tk.Frame(Game,bg="#00CE1F")
 Tactic_Team_Frame2=tk.Frame(Game,bg="#00CE1F")
 Tactic_Separator_Frame=tk.Frame(Tactic_Team_Frame2,bg="#3f3f46")
@@ -146,6 +147,7 @@ Combo_Ball_Winner=[]
 Selected=None
 Currect_Formation='4-3-3'
 Training_Type=''
+Training_Mode=''
 
 def toggle_fullscreen(event=None):
     global Fullscreen
@@ -488,6 +490,16 @@ def choosing_train(train_type):
     Training_Type=train_type
     Training_Frame.place_forget()
     Training_Mode_Frame.place(x=0,y=0,width=1920,height=1080)
+
+def choosing_train_mode(train_mode):
+    global Training_Mode
+    Training_Mode=train_mode
+    Training_Mode_Frame.place_forget()
+    Training_Result_Frame.place(x=0,y=0,width=1920,height=1080)
+    result_training()
+
+def result_training():
+
 
 def show_overall_team(starting_players,formation):
     total=0
@@ -885,6 +897,9 @@ L_Choose_Training_Mode=tk.Label(Training_Mode_Frame,text='Choose Training Mode',
 Easy_Mode_Btn=tk.Button(Training_Mode_Frame,text='Easy',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5)
 Medium_Mode_Btn=tk.Button(Training_Mode_Frame,text='Medium',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5)
 Hard_Mode_Btn=tk.Button(Training_Mode_Frame,text='Hard',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5)
+L_Training_Session=tk.Label(Training_Result_Frame,text='Training Session',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Training_Type=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Training_Mode=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Squad_Menu_Btn.place(x=50,y=700)
 Transfer_Market_Menu_Btn.place(x=200,y=700)
 Training_Menu_Btn.place(x=450,y=700)
