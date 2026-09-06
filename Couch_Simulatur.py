@@ -281,6 +281,9 @@ def loading():
         L_Team_Budget.config(text=f'{readonly_number(Game_Player[s4.get()][Team]['budget'])}$ \n Budget')
         Currect_Formation=Game_Player[s4.get()][Team]['formation']
         L_Team_Overall.config(text=f'{show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)} \n OVR')
+        IMG_Team_Logo=tk.PhotoImage(file=Game_Player[s4.get()][Team]['logo'])
+        L_Place_Logo=tk.Label(Header_Menu_Frame,image=IMG_Team_Logo)
+        L_Place_Logo.place(x=0,y=0)
         main_menu()
 
 def readonly_number(number):
