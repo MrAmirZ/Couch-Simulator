@@ -91,7 +91,7 @@ x_x=50
 x=20
 y2=30
 y_y_y=130
-y_y=80
+y_y=85
 y=20
 s=0
 n=0
@@ -150,6 +150,8 @@ Currect_Formation='4-3-3'
 Training_Type=''
 Training_Mode=''
 Training_Exit_Status=False
+IMG_Team_Logo=None
+L_Place_Logo=None
 
 def toggle_fullscreen(event=None):
     global Fullscreen
@@ -261,7 +263,7 @@ def back_confirm():
     Confirm_Win_Control=0
 
 def loading():
-    global Confirm_Win,s,n,Loading_Time,L_Loading,Teams,Currect_Formation
+    global Confirm_Win,s,n,Loading_Time,L_Loading,Teams,Currect_Formation,IMG_Team_Logo,L_Place_Logo
     Confirm_Win.destroy()
     Select_Team_Frame.place_forget()
     Loading_Frame.place(x=0,y=0,width=1920,height=1080)
@@ -282,6 +284,7 @@ def loading():
         Currect_Formation=Game_Player[s4.get()][Team]['formation']
         L_Team_Overall.config(text=f'{show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)} \n OVR')
         IMG_Team_Logo=tk.PhotoImage(file=Game_Player[s4.get()][Team]['logo'])
+        IMG_Team_Logo=IMG_Team_Logo.subsample(17,17)
         L_Place_Logo=tk.Label(Header_Menu_Frame,image=IMG_Team_Logo)
         L_Place_Logo.place(x=0,y=0)
         main_menu()
@@ -306,9 +309,9 @@ def main_menu():
     Training_Result_Frame.place_forget()
     Statistics_Goal_Frame.place_forget()
     Calendar_Frame.place_forget()
-    Header_Menu_Frame.place(x=0,y=0,width=1920,height=60)
-    Menu_Separator_Frame.place(x=0,y=61,width=1920,height=1)
-    Menu_Frame.place(x=0,y=62,width=1920,height=1080)
+    Header_Menu_Frame.place(x=0,y=0,width=1920,height=90)
+    Menu_Separator_Frame.place(x=0,y=91,width=1920,height=1)
+    Menu_Frame.place(x=0,y=92,width=1920,height=1080)
     Teams=list(Game_Player[s4.get()].keys())
     Game_Calendar=cal.create_calendar(Teams)
     L_Team_Name.config(text=f'{Team} \n Team')
@@ -1175,7 +1178,7 @@ for i in range(12):
     League_Table.append(row)
 for i in range(10):
     L_Subtitle_League=tk.Label(Menu_Frame,font=COMBO_FONT,fg=MENU_ITEM_FG,bg=MENU_BG)
-    L_Subtitle_League.place(x=x_x,y=30)
+    L_Subtitle_League.place(x=x_x,y=35)
     l.append(L_Subtitle_League)
     x_x=x_x+130
 for i in range(10):
