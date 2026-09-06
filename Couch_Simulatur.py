@@ -36,6 +36,7 @@ Player_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Mode_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Result_Frame=tk.Frame(Game,bg=MENU_BG)
+Training_Result_Separator_Frame=tk.Frame(Training_Result_Frame,bg='white',width=3)
 Tactic_Team_Frame1=tk.Frame(Game,bg="#00CE1F")
 Tactic_Team_Frame2=tk.Frame(Game,bg="#00CE1F")
 Tactic_Separator_Frame=tk.Frame(Tactic_Team_Frame2,bg="#3f3f46")
@@ -148,6 +149,7 @@ Selected=None
 Currect_Formation='4-3-3'
 Training_Type=''
 Training_Mode=''
+Training_Exit_Status=False
 
 def toggle_fullscreen(event=None):
     global Fullscreen
@@ -298,6 +300,7 @@ def main_menu():
     Squad_Frame2.place_forget()
     Training_Frame.place_forget()
     Tactic_Team_Frame1.place_forget()
+    Training_Result_Frame.place_forget()
     Statistics_Goal_Frame.place_forget()
     Calendar_Frame.place_forget()
     Header_Menu_Frame.place(x=0,y=0,width=1920,height=60)
@@ -496,10 +499,78 @@ def choosing_train_mode(train_mode):
     Training_Mode=train_mode
     Training_Mode_Frame.place_forget()
     Training_Result_Frame.place(x=0,y=0,width=1920,height=1080)
+    Training_Result_Separator_Frame.place(x=150,y=230,width=1200)
     result_training()
+    training_progress()
+
+def back_to_training_frame():
+    global Training_Type
+    Training_Type=''
+    Training_Mode_Frame.place_forget()
+    Training_Frame.place(x=0,y=0,width=1920,height=1080)
 
 def result_training():
+    Training=Train.Training_Engine(Training_Type,Training_Mode,Game_Player[s4.get()][Team]['starting'])
+    L_Training_Type.config(text=Training_Type.capitalize())
+    L_Training_Mode.config(text=Training_Mode.capitalize())
+    L_Report_Fitness.config(text=f'Fitness\n\n{Training.average_fitness()}  {Training.defrencce_fitness()}')
+    L_Report_Sharpness.config(text=f'Sharpness\n\n{Training.average_sharpness()}  {Training.defrenccd_sharpness()}')
+    L_Report_Moral.config(text=f'Moral\n\n{Training.average_moral()}  {Training.defrencce_moral()}')
+    L_Report_Improvments.config(text=Training.return_result(Training_Type,Training_Mode))
 
+def training_progress(value=0):
+    if value<=100:
+        Training_Progress['value']=value
+        L_Report_Percent.config(text=f'{value}%')
+        if value<=30:
+            if value%2==0:
+                L_Report_Progressbar.config(text='Preparing training...')
+            else:
+                L_Report_Progressbar.config(text='Preparing training..')
+        elif value<=70:
+            if value%2==0:
+                L_Report_Progressbar.config(text='Training in progress...')
+            else:
+                L_Report_Progressbar.config(text='Training in progress..')
+        else:
+            if value%2==0:
+                L_Report_Progressbar.config(text='Finishing training...')
+            else:
+                L_Report_Progressbar.config(text='Finishing training..')
+        Training_Result_Frame.after(150,training_progress,value +1)
+    else:
+        L_Report_Progressbar.config(text='Training Complete.')
+        Continue_Result_Training.place(x=660,y=770)
+
+def training_improvment():
+    global Training_Exit_Status,Training_Type,Training_Mode
+    if Training_Exit_Status==False:
+        L_Training_Session.config(text='Training Complete')
+        L_Report_Progressbar.place_forget()
+        L_Report_Percent.place_forget()
+        L_Report_Sharpness.place_forget()
+        L_Report_Fitness.place_forget()
+        L_Report_Moral.place_forget()
+        Training_Progress.place_forget()
+        L_Improvments.place(x=650,y=270)
+        L_Report_Improvments.place(x=430,y=350)
+        Continue_Result_Training.place(x=700,y=730)
+        Training_Exit_Status=not Training_Exit_Status
+    else:
+        L_Training_Session.config(text='Training Session')
+        L_Report_Progressbar.place(x=400,y=390)
+        L_Report_Percent.place(x=730,y=500)
+        L_Report_Sharpness.place(x=650,y=650)
+        L_Report_Fitness.place(x=300,y=650)
+        L_Report_Moral.place(x=1000,y=650)
+        Training_Progress.place(x=400,y=450)
+        L_Improvments.place_forget()
+        L_Report_Improvments.place_forget()
+        Continue_Result_Training.place_forget()
+        Training_Exit_Status=not Training_Exit_Status
+        Training_Type=''
+        Training_Mode=''
+        main_menu()
 
 def show_overall_team(starting_players,formation):
     total=0
@@ -872,7 +943,7 @@ L_Team_Overall.place(x=340,y=5)
 L_Team_Position.place(x=500,y=5)
 Squad_Menu_Btn=tk.Button(Menu_Frame,text='Squad',font=BUTTON_FONT,command=starting_team_squad,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Transfer_Market_Menu_Btn=tk.Button(Menu_Frame,text='Transfer Market',font=BUTTON_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
-Training_Menu_Btn=tk.Button(Menu_Frame,text='Tranning',font=BUTTON_FONT,command=training_frame,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
+Training_Menu_Btn=tk.Button(Menu_Frame,text='Training',font=BUTTON_FONT,command=training_frame,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Tactics_Menu_Btn=tk.Button(Menu_Frame,text='Tactics',font=BUTTON_FONT,command=tactic_team,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Calendar_Menu_Btn=tk.Button(Menu_Frame,text='Calendar',font=BUTTON_FONT,command=calendar,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Statistics_Menu_Btn=tk.Button(Menu_Frame,text='Statistics',font=BUTTON_FONT,command=statistics_goal,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
@@ -893,13 +964,23 @@ Attacking_Training_Btn=tk.Button(Training_Frame,text=f'Attacking \n\n+ Shooting\
 Defensive_Training_Btn=tk.Button(Training_Frame,text=f'Defensive \n\n+ Defending\n+ Physical\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_train('defensive'))
 Balance_Training_Btn=tk.Button(Training_Frame,text=f'Balance \n\n+ All',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_train('balance'))
 Back_Training_Menu_Btn=tk.Button(Training_Frame,text=f'Back',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=main_menu)
+Back_Training_Mode_Btn=tk.Button(Training_Mode_Frame,text='Back',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=back_to_training_frame)
 L_Choose_Training_Mode=tk.Label(Training_Mode_Frame,text='Choose Training Mode',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
-Easy_Mode_Btn=tk.Button(Training_Mode_Frame,text='Easy',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5)
-Medium_Mode_Btn=tk.Button(Training_Mode_Frame,text='Medium',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5)
-Hard_Mode_Btn=tk.Button(Training_Mode_Frame,text='Hard',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5)
+Easy_Mode_Btn=tk.Button(Training_Mode_Frame,text='Easy',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5,command=lambda :choosing_train_mode('easy'))
+Medium_Mode_Btn=tk.Button(Training_Mode_Frame,text='Medium',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5,command=lambda :choosing_train_mode('medium'))
+Hard_Mode_Btn=tk.Button(Training_Mode_Frame,text='Hard',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5,command=lambda :choosing_train_mode('hard'))
 L_Training_Session=tk.Label(Training_Result_Frame,text='Training Session',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Training_Type=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Training_Mode=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Report_Progressbar=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+Training_Progress=ttk.Progressbar(Training_Result_Frame,maximum=100,orient='horizontal',length=700,mode='determinate')
+L_Report_Percent=tk.Label(Training_Result_Frame,font=BUTTON_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+Continue_Result_Training=tk.Button(Training_Result_Frame,text='Continue',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=training_improvment)
+L_Report_Fitness=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Report_Sharpness=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Report_Moral=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Improvments=tk.Label(Training_Result_Frame,text='Improvments',font=SUBTITLE_FONT,fg=MENU_ITEM_FG,bg=MENU_BG)
+L_Report_Improvments=tk.Label(Training_Result_Frame,font=BUTTON_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Squad_Menu_Btn.place(x=50,y=700)
 Transfer_Market_Menu_Btn.place(x=200,y=700)
 Training_Menu_Btn.place(x=450,y=700)
@@ -922,11 +1003,21 @@ Defending_Training_Btn.place(x=1020,y=320)
 Attacking_Training_Btn.place(x=220,y=470)
 Defensive_Training_Btn.place(x=620,y=470)
 Balance_Training_Btn.place(x=1020,y=470)
-Back_Training_Menu_Btn.place(x=1320,y=730)
+Back_Training_Menu_Btn.place(x=1330,y=750)
 L_Choose_Training_Mode.place(x=590,y=100)
 Easy_Mode_Btn.place(x=200,y=360)
 Medium_Mode_Btn.place(x=600,y=360)
 Hard_Mode_Btn.place(x=1000,y=360)
+Back_Training_Mode_Btn.place(x=1330,y=750)
+L_Training_Session.place(x=640,y=100)
+L_Training_Type.place(x=200,y=170)
+L_Training_Mode.place(x=1150,y=170)
+L_Report_Progressbar.place(x=400,y=390)
+Training_Progress.place(x=400,y=450)
+L_Report_Percent.place(x=730,y=500)
+L_Report_Fitness.place(x=300,y=650)
+L_Report_Sharpness.place(x=650,y=650)
+L_Report_Moral.place(x=1000,y=650)
 L_PlayerInfo=tk.Label(Player_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Back_Player_Btn=tk.Button(Player_Frame,text='Back',font=TEXT_FONT,command=back_player,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_PlayerInfo.place(x=650,y=20)

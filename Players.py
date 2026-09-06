@@ -3,6 +3,7 @@ players = {
         "Barcelona": {
             "formation": "4-3-3",
             "budget": 120000000,
+            "logo":"Assets/logo/Spain/Barcelona.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -56,6 +57,7 @@ players = {
         "Real Madrid": {
             "formation": "4-3-3",
             "budget": 180000000,
+            "logo":"Assets/logo/Spain/Real Madrid.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -109,6 +111,7 @@ players = {
         "Atletico Madrid": {
             "formation": "4-4-2",
             "budget": 100000000,
+            "logo":"Assets/logo/Spain/Atletico Madrid.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -162,6 +165,7 @@ players = {
         "Sevilla": {
             "formation": "4-3-2-1",
             "budget": 45000000,
+            "logo":"Assets/logo/Spain/Sevilla.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -215,6 +219,7 @@ players = {
         "Valencia": {
             "formation": "4-3-2-1",
             "budget": 50000000,
+            "logo":"Assets/logo/Spain/Vallencia.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -269,6 +274,7 @@ players = {
         "Real Sociedad": {
             "formation": "4-3-3",
             "budget": 65000000,
+            "logo":"Assets/logo/Spain/Real Sociedad.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -322,6 +328,7 @@ players = {
         "Villarreal": {
             "formation": "4-3-2-1",
             "budget": 80000000,
+            "logo":"Assets/logo/Spain/Villarreal.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "Normal",
@@ -375,6 +382,7 @@ players = {
         "Betis": {
             "formation": "4-3-2-1",
             "budget": 70000000,
+            "logo":"Assets/logo/Spain/Betis.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "Normal",
@@ -428,6 +436,7 @@ players = {
         "Athletic Bilbao": {
             "formation": "4-3-2-1",
             "budget": 90000000,
+            "logo":"Assets/logo/Spain/Athletico Bilbao.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -481,6 +490,7 @@ players = {
         "Getafe": {
             "formation": "4-4-2",
             "budget": 35000000,
+            "logo":"Assets/logo/Spain/Getafe.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -534,6 +544,7 @@ players = {
         "Celta Vigo": {
             "formation": "4-3-3",
             "budget": 45000000,
+            "logo":"Assets/logo/Spain/Celta Vigo.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -587,6 +598,7 @@ players = {
         "Girona": {
             "formation": "4-3-2-1",
             "budget": 70000000,
+            "logo":"Assets/logo/Spain/Girona.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -642,6 +654,7 @@ players = {
         "Manchester City": {
             "formation": "4-3-3",
             "budget": 250000000,
+            "logo":"Assets/England/Manchester City.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -695,6 +708,7 @@ players = {
         "Arsenal": {
             "formation": "4-3-3",
             "budget": 220000000,
+            "logo":"Assets/England/Arsenal.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -748,6 +762,7 @@ players = {
         "Liverpool": {
             "formation": "4-3-3",
             "budget": 210000000,
+            "logo":"Assets/England/Liverpool.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -803,6 +818,7 @@ players = {
         "Chelsea": {
             "formation": "4-3-2-1",
             "budget": 180000000,
+            "logo":"Assets/England/Chelsea.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -856,6 +872,7 @@ players = {
         "Manchester United": {
             "formation": "4-3-2-1",
             "budget": 160000000,
+            "logo":"Assets/England/Manchester United.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -910,6 +927,7 @@ players = {
         "Tottenham": {
             "formation": "4-3-3",
             "budget": 170000000,
+            "logo":"Assets/England/Tottenham Hotspur.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -963,6 +981,7 @@ players = {
         "Newcastle United": {
             "formation": "4-3-3",
             "budget": 180000000,
+            "logo":"Assets/England/Newcastle United.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -1016,6 +1035,7 @@ players = {
         "Aston Villa": {
             "formation": "4-3-2-1",
             "budget": 120000000,
+            "logo":"Assets/England/Aston Villa.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -1069,6 +1089,7 @@ players = {
         "West Ham": {
             "formation": "4-3-2-1",
             "budget": 90000000,
+            "logo":"Assets/England/West Ham.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -1122,6 +1143,7 @@ players = {
         "Brighton": {
             "formation": "4-3-2-1",
             "budget": 100000000,
+            "logo":"Assets/England/Brighton.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -1175,6 +1197,7 @@ players = {
         "Leicester City": {
             "formation": "4-3-2-1",
             "budget": 55000000,
+            "logo":"Assets/England/Leicester City.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -1228,6 +1251,7 @@ players = {
         "Everton": {
             "formation": "4-3-2-1",
             "budget": 65000000,
+            "logo":"Assets/England/Everton.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -1283,6 +1307,7 @@ players = {
         "Bayern Munich": {
             "formation": "4-3-2-1",
             "budget": 250000000,
+            "logo":"Assets/Germany/Bayern Munich.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -1336,6 +1361,7 @@ players = {
         "Bayer Leverkusen": {
             "formation": "3-5-1",
             "budget": 130000000,
+            "logo":"Assets/Germany/Bayer Leverkisen.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -1389,6 +1415,7 @@ players = {
         "Borussia Dortmund": {
             "formation": "4-3-3",
             "budget": 110000000,
+            "logo":"Assets/Germany/Dortmund.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -1442,6 +1469,7 @@ players = {
         "RB Leipzig": {
             "formation": "4-2-4",
             "budget": 100000000,
+            "logo":"Assets/Germany/RB Leipzig.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -1495,6 +1523,7 @@ players = {
         "Stuttgart": {
             "formation": "4-3-2-1",
             "budget": 70000000,
+            "logo":"Assets/Germany/Stuttgart.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -1548,6 +1577,7 @@ players = {
         "Eintracht Frankfurt": {
             "formation": "3-5-2",
             "budget": 60000000,
+            "logo":"Assets/Germany/Eintracht Frankfurt.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -1601,6 +1631,7 @@ players = {
         "Wolfsburg": {
             "formation": "4-2-4",
             "budget": 50000000,
+            "logo":"Assets/Germany/Wolfsburg.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -1654,6 +1685,7 @@ players = {
         "Freiburg": {
             "formation": "4-2-4",
             "budget": 35000000,
+            "logo":"Assets/Germany/Freiburg.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -1707,6 +1739,7 @@ players = {
         "Borussia": {
             "formation": "4-3-2-1",
             "budget": 40000000,
+            "logo":"Assets/Germany/Borussia.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -1760,6 +1793,7 @@ players = {
         "Hoffenheim": {
             "formation": "4-1-2-1-2",
             "budget": 30000000,
+            "logo":"Assets/Germany/Hoffenheim.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -1813,6 +1847,7 @@ players = {
         "Mainz": {
             "formation": "4-4-2",
             "budget": 25000000,
+            "logo":"Assets/Germany/Mainz.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -1866,6 +1901,7 @@ players = {
         "Werder Bremen": {
             "formation": "4-4-2",
             "budget": 30000000,
+            "logo":"Assets/Germany/Werder Bremen.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -1921,6 +1957,7 @@ players = {
         "Juventus": {
             "formation": "4-3-3",
             "budget": 100000000,
+            "logo":"Assets/Italy/Juventus.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -1974,6 +2011,7 @@ players = {
         "Inter Milan": {
             "formation": "3-5-2",
             "budget": 90000000,
+            "logo":"Assets/Italy/Inter Milan.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -2025,6 +2063,38 @@ players = {
             ]
         },
         "AC Milan": {
+            "formation": "4-2-3-1",
+            "budget": 85000000,
+            "logo":"Assets/Italy/AC Milan.png",
+            "tactics": {
+                "mentality": "Attacking",
+                "pressing": "High",
+                "defensive_line": "High",
+                "build_up": "Short Passing",
+                "width": "Wide",
+                "chance_creation": "Fast Build Up",
+                "tempo": "Fast",
+                "time_wasting": "Never",
+                "counter_attack": "On",
+                "offside_trap": "On",
+                "defensive_style": "Press After Possession Loss",
+                "attacking_focus": "Left",
+                "creative_freedom": "Balanced"
+            },
+            "roles": {
+                "captain": "Mike Maignan",
+                "penalty_taker": "Santiago Gimenez",
+                "short_free_kick_taker": "Christian Pulisic",
+                "long_free_kick_taker": "Theo Hernandez",
+                "left_corner": "Christian Pulisic",
+                "right_corner": "Christian Pulisic",
+                "long_throw": "Theo Hernandez",
+                "target_man": "Santiago Gimenez",
+                "playmaker": "Tijjani Reijnders",
+                "pressing_leader": "Christian Pulisic",
+                "fast_break_runner": "Rafael Leao",
+                "ball_winner": "Youssouf Fofana"
+            },
             "starting": [
                 {"name":"Mike Maignan","position":"GK","overall":88,"age":30,"value":50000000,"salary":280000,"diving":89,"handling":87,"kicking":85,"reflexes":90,"speed":49,"positioning":88,"fitness":100,"morale":80,"sharpness":100},
                 {"name":"Emerson Royal","position":"RB","overall":81,"age":26,"value":22000000,"salary":120000,"pace":81,"shooting":68,"passing":77,"dribbling":79,"defending":81,"physical":79,"fitness":100,"morale":80,"sharpness":100},
@@ -2047,6 +2117,38 @@ players = {
             ]
         },
         "Napoli": {
+                "formation": "4-3-3",
+                "budget": 90000000,
+                "logo":"Assets/Italy/Napoli.png",
+                "tactics": {
+                    "mentality": "Attacking",
+                    "pressing": "High",
+                    "defensive_line": "High",
+                    "build_up": "Short Passing",
+                    "width": "Wide",
+                    "chance_creation": "Fast Build Up",
+                    "tempo": "Fast",
+                    "time_wasting": "Never",
+                    "counter_attack": "On",
+                    "offside_trap": "On",
+                    "defensive_style": "Press After Possession Loss",
+                    "attacking_focus": "Left",
+                    "creative_freedom": "Balanced"
+                },
+                "roles": {
+                    "captain": "Giovanni Di Lorenzo",
+                    "penalty_taker": "Romelu Lukaku",
+                    "short_free_kick_taker": "Stanislav Lobotka",
+                    "long_free_kick_taker": "Scott McTominay",
+                    "left_corner": "Matteo Politano",
+                    "right_corner": "David Neres",
+                    "long_throw": "Giovanni Di Lorenzo",
+                    "target_man": "Romelu Lukaku",
+                    "playmaker": "Stanislav Lobotka",
+                    "pressing_leader": "Scott McTominay",
+                    "fast_break_runner": "David Neres",
+                    "ball_winner": "Andre-Frank Zambo Anguissa"
+                },
             "starting": [
                 {"name":"Alex Meret","position":"GK","overall":84,"age":28,"value":28000000,"salary":150000,"diving":85,"handling":84,"kicking":81,"reflexes":86,"speed":46,"positioning":84,"fitness":100,"morale":80,"sharpness":100},
                 {"name":"Giovanni Di Lorenzo","position":"RB","overall":85,"age":32,"value":30000000,"salary":180000,"pace":78,"shooting":73,"passing":82,"dribbling":81,"defending":84,"physical":82,"fitness":100,"morale":80,"sharpness":100},
@@ -2071,6 +2173,7 @@ players = {
         "Roma": {
             "formation": "4-3-3",
             "budget": 60000000,
+            "logo":"Assets/Italy/Roma.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -2124,6 +2227,7 @@ players = {
         "Lazio": {
             "formation": "4-3-3",
             "budget": 50000000,
+            "logo":"Assets/Italy/Lazio.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -2177,6 +2281,7 @@ players = {
         "Atalanta": {
             "formation": "3-5-1",
             "budget": 55000000,
+            "logo":"Assets/Italy/Atalanta.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -2230,6 +2335,7 @@ players = {
         "Bologna": {
             "formation": "4-2-4",
             "budget": 40000000,
+            "logo":"Assets/Italy/Bologna.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -2283,6 +2389,7 @@ players = {
         "Torino": {
             "formation": "5-3-2",
             "budget": 35000000,
+            "logo":"Assets/Italy/Torino.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -2336,6 +2443,7 @@ players = {
         "Udinese": {
             "formation": "4-3-2-1",
             "budget": 20000000,
+            "logo":"Assets/Italy/Udinese.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -2388,6 +2496,7 @@ players = {
         },
         "Genoa": {
             "formation": "4-3-2-1",
+            "logo":"Assets/Italy/Genoa.png",
             "budget": 18000000,
             "tactics": {
                 "mentality": "Balanced",
@@ -2442,6 +2551,7 @@ players = {
         "Sassuolo": {
             "formation": "4-3-2-1",
             "budget": 15000000,
+            "logo":"Assets/Italy/Sassuolo.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -2497,6 +2607,7 @@ players = {
         "PSG": {
             "formation": "4-3-3",
             "budget": 150000000,
+            "logo":"Assets/France/PSG.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -2550,6 +2661,7 @@ players = {
         "Marseille": {
             "formation": "4-3-2-1",
             "budget": 50000000,
+            "logo":"Assets/France/Marseille.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -2603,6 +2715,7 @@ players = {
         "Monaco": {
             "formation": "4-3-2-1",
             "budget": 45000000,
+            "logo":"Assets/France/Monaco.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -2656,6 +2769,7 @@ players = {
         "Lille": {
             "formation": "4-3-2-1",
             "budget": 35000000,
+            "logo":"Assets/France/Lille.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -2709,6 +2823,7 @@ players = {
         "Lyon": {
             "formation": "4-2-4",
             "budget": 120000000,
+            "logo":"Assets/France/Lyon.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -2762,6 +2877,7 @@ players = {
         "Nice": {
             "formation": "4-2-4",
             "budget": 70000000,
+            "logo":"Assets/France/Nice.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -2815,6 +2931,7 @@ players = {
         "Lens": {
             "formation": "4-2-4",
             "budget": 50000000,
+            "logo":"Assets/France/Lens.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -2868,6 +2985,7 @@ players = {
         "Rennes": {
             "formation": "4-2-4",
             "budget": 60000000,
+            "logo":"Assets/France/Rennes.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -2921,6 +3039,7 @@ players = {
         "Nantes": {
             "formation": "4-2-4",
             "budget": 40000000,
+            "logo":"Assets/France/Nantes.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -2974,6 +3093,7 @@ players = {
         "Strasbourg": {
             "formation": "4-2-4",
             "budget": 50000000,
+            "logo":"Assets/France/Strasbourg.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -3027,6 +3147,7 @@ players = {
         "Brest": {
             "formation": "4-2-4",
             "budget": 35000000,
+            "logo":"Assets/France/Brest.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3080,6 +3201,7 @@ players = {
         "Reims": {
             "formation": "4-2-4",
             "budget": 30000000,
+            "logo":"Assets/France/Reims.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3136,6 +3258,7 @@ players = {
             "Flamengo": {
                 "formation": "4-3-2-1",
                 "budget": 35000000,
+                "logo":"Assets/Brazil/Flamengo.png",
                 "tactics": {
                     "mentality": "Attacking",
                     "pressing": "High",
@@ -3190,6 +3313,7 @@ players = {
         "Palmeiras": {
             "formation": "4-3-2-1",
             "budget": 35000000,
+            "logo":"Assets/Brazil/Palmeiras.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3243,6 +3367,7 @@ players = {
         "Botafogo": {
             "formation": "4-3-3",
             "budget": 25000000,
+            "logo":"Assets/Brazil/Botafogo.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3296,6 +3421,7 @@ players = {
         "Fluminense": {
             "formation": "4-4-2",
             "budget": 20000000,
+            "logo":"Assets/Brazil/Fluminense.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3349,6 +3475,7 @@ players = {
         "Sao Paulo": {
             "formation": "4-3-3",
             "budget": 25000000,
+            "logo":"Assets/Brazil/Sao Paulo.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3402,6 +3529,7 @@ players = {
         "Corinthians": {
             "formation": "4-3-3",
             "budget": 20000000,
+            "logo":"Assets/Brazil/Corinthians.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3455,6 +3583,7 @@ players = {
         "Internacional": {
             "formation": "4-3-3",
             "budget": 18000000,
+            "logo":"Assets/Brazil/Internacional.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3508,6 +3637,7 @@ players = {
         "Cruzeiro": {
             "formation": "4-3-3",
             "budget": 16000000,
+            "logo":"Assets/Brazil/Cruzeiro.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3561,6 +3691,7 @@ players = {
         "Atletico Mineiro": {
             "formation": "4-3-3",
             "budget": 16000000,
+            "logo":"Assets/Brazil/Atletico Mineiro.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3614,6 +3745,7 @@ players = {
         "Gremio": {
             "formation": "4-3-3",
             "budget": 16000000,
+            "logo":"Assets/Brazil/Gremio.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3667,6 +3799,7 @@ players = {
         "Santos": {
             "formation": "4-3-3",
             "budget": 14000000,
+            "logo":"Assets/Brazil/Santos.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "Normal",
@@ -3720,6 +3853,7 @@ players = {
         "Vasco da Gama": {
             "formation": "4-3-3",
             "budget": 12000000,
+            "logo":"Assets/Brazil/Vasco Da Gama.png",
             "tactics": {
                 "mentality": "Balance",
                 "pressing": "Normal",
@@ -3775,6 +3909,7 @@ players = {
         "Inter Miami": {
             "formation": "4-3-3",
             "budget": 18000000,
+            "logo":"Assets/USA/Inter Miami.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "Normal",
@@ -3828,6 +3963,7 @@ players = {
         "LAFC": {
             "formation": "4-3-3",
             "budget": 13000000,
+            "logo":"Assets/USA/LA FC.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -3881,6 +4017,7 @@ players = {
         "LA Galaxy": {
             "formation": "4-3-3",
             "budget": 12000000,
+            "logo":"Assets/USA/LA Galaxy.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "Normal",
@@ -3934,6 +4071,7 @@ players = {
         "Seattle Sounders": {
             "formation": "4-3-3",
             "budget": 14000000,
+            "logo":"Assets/USA/Seattle Sounders.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -3987,6 +4125,7 @@ players = {
         "Columbus Crew": {
             "formation": "4-3-3",
             "budget": 18000000,
+            "logo":"Assets/USA/Columbus Crew.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -4040,6 +4179,7 @@ players = {
         "FC Cincinnati": {
             "formation": "4-3-3",
             "budget": 14000000,
+            "logo":"Assets/USA/Cincinnati.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -4093,6 +4233,7 @@ players = {
         "Atlanta United": {
             "formation": "4-3-3",
             "budget": 14000000,
+            "logo":"Assets/USA/Atlanta United.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -4146,6 +4287,7 @@ players = {
         "New York City FC": {
             "formation": "4-3-3",
             "budget": 12000000,
+            "logo":"Assets/USA/New York City.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -4199,6 +4341,7 @@ players = {
         "Orlando City": {
             "formation": "4-3-3",
             "budget": 18000000,
+            "logo":"Assets/USA/Orlando City.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -4252,6 +4395,7 @@ players = {
         "Philadelphia Union": {
             "formation": "4-3-3",
             "budget": 15000000,
+            "logo":"Assets/USA/Philadelphia Union.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -4305,6 +4449,7 @@ players = {
         "Austin FC": {
             "formation": "4-3-3",
             "budget": 13000000,
+            "logo":"Assets/USA/Austin Fc.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "High",
@@ -4358,6 +4503,7 @@ players = {
         "Portland Timbers": {
             "formation": "4-3-3",
             "budget": 15000000,
+            "logo":"Assets/USA/Portland Timbers.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -4413,6 +4559,7 @@ players = {
         "Persepolis": {
             "formation": "4-3-3",
             "budget": 12000000,
+            "logo":"Assets/Iran/Pesepolis.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -4466,6 +4613,7 @@ players = {
         "Esteghlal": {
             "formation": "4-3-3",
             "budget": 11000000,
+            "logo":"Assets/Iran/Esteghlal.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -4519,6 +4667,7 @@ players = {
         "Sepahan": {
             "formation": "4-3-3",
             "budget": 13500000,
+            "logo":"Assets/Iran/Sepahan.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -4572,6 +4721,7 @@ players = {
         "Tractor": {
             "formation": "4-3-3",
             "budget": 14500000,
+            "logo":"Assets/Iran/Tractor.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -4625,6 +4775,7 @@ players = {
         "Foolad": {
             "formation": "4-3-3",
             "budget": 7000000,
+            "logo":"Assets/Iran/Foolad.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -4678,6 +4829,7 @@ players = {
         "Zob Ahan": {
             "formation": "4-3-3",
             "budget": 6000000,
+            "logo":"Assets/Iran/Zob Ahan.png",
             "tactics": {
                 "mentality": "Defensive",
                 "pressing": "Normal",
@@ -4730,7 +4882,8 @@ players = {
         },
         "Malavan": {
             "formation": "4-3-3",
-            "budget": 50,
+            "budget": 5000000,
+            "logo":"Assets/Iran/Malavan.png",
             "tactics": {
                 "mentality": "Defensive",
                 "pressing": "Normal",
@@ -4784,6 +4937,7 @@ players = {
         "Gol Gohar": {
             "formation": "4-3-3",
             "budget": 5000000,
+            "logo":"Assets/Iran/Gol Gohar.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -4837,6 +4991,7 @@ players = {
         "Nassaji": {
             "formation": "4-3-3",
             "budget": 5000000,
+            "logo":"Assets/Iran/Nassaji.png",
             "tactics": {
                 "mentality": "Defensive",
                 "pressing": "Low",
@@ -4890,6 +5045,7 @@ players = {
         "Shahr Khodro": {
             "formation": "4-3-3",
             "budget": 4500000,
+            "logo":"Assets/Iran/Shahr Khodro.png",
             "tactics": {
                 "mentality": "Defensive",
                 "pressing": "Low",
@@ -4943,6 +5099,7 @@ players = {
         "Mes Rafsanjan": {
             "formation": "4-3-3",
             "budget": 4000000,
+            "logo":"Assets/Iran/Mes Rafsanjan.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
@@ -4996,6 +5153,7 @@ players = {
         "Aluminium Arak": {
             "formation": "4-3-3",
             "budget": 3000000,
+            "logo":"Assets/Iran/Aluminium Arak.png",
             "tactics": {
                 "mentality": "Balanced",
                 "pressing": "Normal",
