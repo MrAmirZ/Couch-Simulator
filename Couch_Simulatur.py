@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from pathlib import Path
 import random
 import copy
 from Players import players
@@ -33,7 +34,8 @@ Menu_Frame=tk.Frame(Game,bg=MENU_BG)
 Squad_Frame1=tk.Frame(Game,bg=MENU_BG)
 Squad_Frame2=tk.Frame(Game,bg=MENU_BG)
 Player_Frame=tk.Frame(Game,bg=MENU_BG)
-Training_Frame=tk.Frame(Game,bg=MENU_BG)
+Training_Select_Player_Frame=tk.Frame(Game,bg=MENU_BG)
+Training_Type_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Mode_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Result_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Result_Separator_Frame=tk.Frame(Training_Result_Frame,bg='white',width=3)
@@ -76,6 +78,7 @@ r10=tk.StringVar()
 r11=tk.StringVar()
 r12=tk.StringVar()
 
+Base_Path=Path(__file__).parent
 Fullscreen=True
 Game_Player=copy.deepcopy(players)
 q=0
@@ -147,6 +150,8 @@ Combo_Fast_Break_Runner=[]
 Combo_Ball_Winner=[]
 Selected=None
 Currect_Formation='4-3-3'
+Training_Players=[]
+Changing_Selection=False
 Training_Type=''
 Training_Mode=''
 Training_Exit_Status=False
@@ -283,7 +288,7 @@ def loading():
         L_Team_Budget.config(text=f'{readonly_number(Game_Player[s4.get()][Team]['budget'])}$ \n Budget')
         Currect_Formation=Game_Player[s4.get()][Team]['formation']
         L_Team_Overall.config(text=f'{show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)} \n OVR')
-        IMG_Team_Logo=tk.PhotoImage(file=Game_Player[s4.get()][Team]['logo'])
+        IMG_Team_Logo=tk.PhotoImage(file=Base_Path/Game_Player[s4.get()][Team]['logo'])
         IMG_Team_Logo=IMG_Team_Logo.subsample(17,17)
         L_Place_Logo=tk.Label(Header_Menu_Frame,image=IMG_Team_Logo,bg=HEADER_MENU_BG)
         L_Place_Logo.place(x=30,y=0)
@@ -301,10 +306,12 @@ def create_league():
         League[team] = {"P": 0,"W": 0,"D": 0,"L": 0,"GF": 0,"GA": 0,"GD": 0,"PTS": 0}
 
 def main_menu():
-    global Teams,Game_Calendar
+    global Teams,Game_Calendar,Training_Players
+    Training_Players=[]
     Squad_Frame1.place_forget()
     Squad_Frame2.place_forget()
-    Training_Frame.place_forget()
+    Training_Select_Player_Frame.place_forget()
+    Training_Type_Frame.place_forget()
     Tactic_Team_Frame1.place_forget()
     Training_Result_Frame.place_forget()
     Statistics_Goal_Frame.place_forget()
@@ -318,6 +325,7 @@ def main_menu():
     L_Team_Budget.config(text=f'{readonly_number(Game_Player[s4.get()][Team]['budget'])}$ \n Budget')
     Currect_Formation=Game_Player[s4.get()][Team]['formation']
     L_Team_Overall.config(text=f'{show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)} \n OVR')
+    show_player_listbox_training()
     show_league()
 
 def show_league():
@@ -384,7 +392,8 @@ def back_player():
 
 def training_frame():
     Menu_Frame.place_forget()
-    Training_Frame.place(x=0,y=0,width=1920,height=1080)
+    Training_Type_Frame.place_forget()
+    Training_Select_Player_Frame.place(x=0,y=0,width=1920,height=1080)
 
 def tactic_team():
     Menu_Frame.place_forget()
@@ -494,10 +503,59 @@ def show_bench():
         Player_Bench_Place_List.append(Player_Bench_Place)
         tbx +=150
 
+def player_listbox():
+    Team_Players=[]
+    for player in Game_Player[s4.get()][Team]['starting']:
+        Team_Players.append(player)
+    for player in Game_Player[s4.get()][Team]['bench']:
+        Team_Players.append(player)
+    return Team_Players
+
+def show_player_listbox_training():
+    Players_Listbox_Training.delete(0,tk.END)
+    Team_Players=player_listbox()
+    for player in Team_Players:
+        Players_Listbox_Training.insert(tk.END,player['name'])
+
+def limit_selection(event):
+    global Training_Players
+    global Changing_Selection
+    if Changing_Selection:
+        return
+    current_selection = list(Players_Listbox_Training.curselection())
+    for index in current_selection:
+        if index not in Training_Players:
+            Training_Players.append(index)
+    for index in Training_Players.copy():
+        if index not in current_selection:
+            Training_Players.remove(index)
+    if len(Training_Players) > 3:
+        oldest_player = Training_Players.pop(0)
+        Changing_Selection = True
+        Players_Listbox_Training.selection_clear(oldest_player)
+        Changing_Selection = False
+    selected_count = len(Training_Players)
+    if selected_count == 0:
+        L_Report_Listbox_Training.config(text="You selected 0 players")
+        Continue_to_Training_Type_Frame.place_forget()
+    elif selected_count == 1:
+        L_Report_Listbox_Training.config(text="You selected 1 player")
+        Continue_to_Training_Type_Frame.place(x=720,y=750)
+    elif selected_count == 2:
+        L_Report_Listbox_Training.config(text="You selected 2 players")
+        Continue_to_Training_Type_Frame.place(x=720,y=750)
+    elif selected_count == 3:
+        L_Report_Listbox_Training.config(text="You selected 3 players")
+        Continue_to_Training_Type_Frame.place(x=720,y=750)
+
+def train_type_frame():
+    Training_Select_Player_Frame.place_forget()
+    Training_Type_Frame.place(x=0,y=0,width=1920,height=1080)
+
 def choosing_train(train_type):
     global Training_Type
     Training_Type=train_type
-    Training_Frame.place_forget()
+    Training_Type_Frame.place_forget()
     Training_Mode_Frame.place(x=0,y=0,width=1920,height=1080)
 
 def choosing_train_mode(train_mode):
@@ -513,10 +571,14 @@ def back_to_training_frame():
     global Training_Type
     Training_Type=''
     Training_Mode_Frame.place_forget()
-    Training_Frame.place(x=0,y=0,width=1920,height=1080)
+    Training_Type_Frame.place(x=0,y=0,width=1920,height=1080)
 
 def result_training():
-    Training=Train.Training_Engine(Training_Type,Training_Mode,Game_Player[s4.get()][Team]['starting'])
+    global Training_Players
+    Selected_Players=[]
+    for i in Training_Players:
+        Selected_Players.append(player_listbox()[i])
+    Training=Train.Training_Engine(Training_Type,Training_Mode,Selected_Players)
     L_Training_Type.config(text=Training_Type.capitalize())
     L_Training_Mode.config(text=Training_Mode.capitalize())
     L_Report_Fitness.config(text=f'Fitness\n\n{Training.average_fitness()}  {Training.defrencce_fitness()}')
@@ -549,7 +611,7 @@ def training_progress(value=0):
         Continue_Result_Training.place(x=660,y=770)
 
 def training_improvment():
-    global Training_Exit_Status,Training_Type,Training_Mode
+    global Training_Exit_Status,Training_Type,Training_Mode,Training_Players
     if Training_Exit_Status==False:
         L_Training_Session.config(text='Training Complete')
         L_Report_Progressbar.place_forget()
@@ -574,6 +636,7 @@ def training_improvment():
         L_Report_Improvments.place_forget()
         Continue_Result_Training.place_forget()
         Training_Exit_Status=not Training_Exit_Status
+        Training_Players=[]
         Training_Type=''
         Training_Mode=''
         main_menu()
@@ -892,9 +955,6 @@ def update_match():
         L_Result_Match.config(text=f'{match.minute} {event}')
     Match_Frame.after(1000,update_match)
 
-Game.bind("<F11>",toggle_fullscreen)
-Game.bind("<Alt-F4>",exit_game)
-
 L_Welcome_Start=tk.Label(Start_Frame,text='Welcome to the Couch Simulator'+'\n'+'Please Click the Button',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Welcome_Start.place(x=530,y=150)
 Start_btn=tk.Button(Start_Frame,text='Start',font=('arial',20),command=start,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
@@ -959,17 +1019,22 @@ Bench_Squad_Btn=tk.Button(Squad_Frame1,text='Bench',font=TEXT_FONT,command=bench
 Back_Bench_To_Starting_Squad=tk.Button(Squad_Frame2,text='Back',font=TEXT_FONT,command=starting_team_squad,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Back_Menu_Squad1_Btn=tk.Button(Squad_Frame1,text='Back Menu',font=TEXT_FONT,command=main_menu,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Back_Menu_Squad2_Btn=tk.Button(Squad_Frame2,text='Back Menu',font=TEXT_FONT,command=main_menu,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
-L_Choose_Training=tk.Label(Training_Frame,text='Choose Training',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
-Physical_Training_Btn=tk.Button(Training_Frame,text='Physical \n\n+ Physical',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('physical'))
-Shooting_Training_Btn=tk.Button(Training_Frame,text='Shooting \n\n+ Shooting',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('shooting'))
-Passing_Training_Btn=tk.Button(Training_Frame,text='Passing \n\n+ Passing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('passing'))
-Pace_Training_Btn=tk.Button(Training_Frame,text=f'Pace \n\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('pace'))
-Dribbling_Training_Btn=tk.Button(Training_Frame,text=f'Dribbling \n\n+ Dribling',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('dribbling'))
-Defending_Training_Btn=tk.Button(Training_Frame,text=f'Defending \n\n+ Defenfing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('defending'))
-Attacking_Training_Btn=tk.Button(Training_Frame,text=f'Attacking \n\n+ Shooting\n+ Dribbling\n+ Passing\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('attacking'))
-Defensive_Training_Btn=tk.Button(Training_Frame,text=f'Defensive \n\n+ Defending\n+ Physical\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_train('defensive'))
-Balance_Training_Btn=tk.Button(Training_Frame,text=f'Balance \n\n+ All',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_train('balance'))
-Back_Training_Menu_Btn=tk.Button(Training_Frame,text=f'Back',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=main_menu)
+L_Select_Players=tk.Label(Training_Select_Player_Frame,text='Select Players',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+Players_Listbox_Training=tk.Listbox(Training_Select_Player_Frame,selectmode=tk.MULTIPLE,font=TEXT_FONT,selectbackground="#d2d508",fg='white',bg=HEADER_MENU_BG,height=len(player_listbox()),width=35)
+L_Report_Listbox_Training=tk.Label(Training_Select_Player_Frame,font=BUTTON_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+Continue_to_Training_Type_Frame=tk.Button(Training_Select_Player_Frame,text='Continue',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=train_type_frame)
+L_Choose_Training=tk.Label(Training_Type_Frame,text='Choose Training',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+Physical_Training_Btn=tk.Button(Training_Type_Frame,text='Physical \n\n+ Physical',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('physical'))
+Shooting_Training_Btn=tk.Button(Training_Type_Frame,text='Shooting \n\n+ Shooting',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('shooting'))
+Passing_Training_Btn=tk.Button(Training_Type_Frame,text='Passing \n\n+ Passing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('passing'))
+Pace_Training_Btn=tk.Button(Training_Type_Frame,text=f'Pace \n\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('pace'))
+Dribbling_Training_Btn=tk.Button(Training_Type_Frame,text=f'Dribbling \n\n+ Dribling',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('dribbling'))
+Defending_Training_Btn=tk.Button(Training_Type_Frame,text=f'Defending \n\n+ Defenfing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('defending'))
+Attacking_Training_Btn=tk.Button(Training_Type_Frame,text=f'Attacking \n\n+ Shooting\n+ Dribbling\n+ Passing\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('attacking'))
+Defensive_Training_Btn=tk.Button(Training_Type_Frame,text=f'Defensive \n\n+ Defending\n+ Physical\n+ Pace',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_train('defensive'))
+Balance_Training_Btn=tk.Button(Training_Type_Frame,text=f'Balance \n\n+ All',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_train('balance'))
+Back_Training_Menu_Btn=tk.Button(Training_Select_Player_Frame,text=f'Back',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=main_menu)
+Back_Training_Player_Btn=tk.Button(Training_Type_Frame,text='Back',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=training_frame)
 Back_Training_Mode_Btn=tk.Button(Training_Mode_Frame,text='Back',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=back_to_training_frame)
 L_Choose_Training_Mode=tk.Label(Training_Mode_Frame,text='Choose Training Mode',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Easy_Mode_Btn=tk.Button(Training_Mode_Frame,text='Easy',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=5,command=lambda :choosing_train_mode('easy'))
@@ -999,6 +1064,9 @@ Bench_Squad_Btn.place(x=1320,y=730)
 Back_Bench_To_Starting_Squad.place(x=1320,y=730)
 Back_Menu_Squad1_Btn.place(x=100,y=730)
 Back_Menu_Squad2_Btn.place(x=100,y=730)
+L_Select_Players.place(x=620,y=50)
+Players_Listbox_Training.place(x=500,y=120)
+L_Report_Listbox_Training.place(x=625,y=700)
 L_Choose_Training.place(x=620,y=70)
 Physical_Training_Btn.place(x=220,y=170)
 Shooting_Training_Btn.place(x=620,y=170)
@@ -1009,7 +1077,8 @@ Defending_Training_Btn.place(x=1020,y=320)
 Attacking_Training_Btn.place(x=220,y=470)
 Defensive_Training_Btn.place(x=620,y=470)
 Balance_Training_Btn.place(x=1020,y=470)
-Back_Training_Menu_Btn.place(x=1330,y=750)
+Back_Training_Menu_Btn.place(x=630,y=750)
+Back_Training_Player_Btn.place(x=1330,y=730)
 L_Choose_Training_Mode.place(x=590,y=100)
 Easy_Mode_Btn.place(x=200,y=360)
 Medium_Mode_Btn.place(x=600,y=360)
@@ -1196,6 +1265,12 @@ for i in range(8):
     Tactics_Btn.place(x=x2,y=y2,width=300)
     Tactics.append(Tactics_Btn)
     y2=y2+80
+
+Game.bind("<F11>",toggle_fullscreen)
+Game.bind("<Alt-F4>",exit_game)
+Players_Listbox_Training.bind("<<ListboxSelect>>",limit_selection)
+
 check_country()
 show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)
+
 Game.mainloop()

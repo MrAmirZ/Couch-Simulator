@@ -15,21 +15,21 @@ class Training_Engine:
         First_Sum_Fitness=0
         for player in self.starting:
             First_Sum_Fitness+=player['fitness']
-        First_Average_Fitness=First_Sum_Fitness//11
+        First_Average_Fitness=First_Sum_Fitness//len(self.starting)
         return First_Average_Fitness
 
     def first_average_sharpness(self):
         First_Sum_Sharpness=0
         for player in self.starting:
             First_Sum_Sharpness+=player['sharpness']
-        First_Average_Sharpness=First_Sum_Sharpness//11
+        First_Average_Sharpness=First_Sum_Sharpness//len(self.starting)
         return First_Average_Sharpness
 
     def first_average_moral(self):
         First_Sum_Moral=0
         for player in self.starting:
             First_Sum_Moral+=player['morale']
-        First_Average_Moral=First_Sum_Moral//11
+        First_Average_Moral=First_Sum_Moral//len(self.starting)
         return First_Average_Moral
     
     def check_training(self):
@@ -106,7 +106,7 @@ class Training_Engine:
                                     player['fitness']-=6
                                     player['sharpness']+=3
                 if self.mode=='hard':
-                    if player['fitness']>20:
+                    if player['fitness']<20:
                         return 'Fitness is too low for Hard Training.'
                     else:
                         if player['position']!='GK':
@@ -349,7 +349,7 @@ class Training_Engine:
         Second_Sum_Fitness=0
         for player in self.starting:
             Second_Sum_Fitness+=player['fitness']
-        Average_Fitness=Second_Sum_Fitness//11
+        Average_Fitness=Second_Sum_Fitness//len(self.starting)
         return Average_Fitness
     
     def defrencce_fitness(self):
@@ -359,7 +359,7 @@ class Training_Engine:
         Sum_Sharpness=0
         for player in self.starting:
             Sum_Sharpness+=player['sharpness']
-        Average_Sharpness=Sum_Sharpness//11
+        Average_Sharpness=Sum_Sharpness//len(self.starting)
         return Average_Sharpness
 
     def defrenccd_sharpness(self):
@@ -372,7 +372,7 @@ class Training_Engine:
         Sum_Moral=0
         for player in self.starting:
             Sum_Moral+=player['morale']
-        Average_Moral=Sum_Moral//11
+        Average_Moral=Sum_Moral//len(self.starting)
         return Average_Moral
 
     def defrencce_moral(self):
@@ -403,8 +403,8 @@ class Training_Engine:
                 return f'Shooting:  +1\n\nDribbling: +1\n\nPassing: +1\n\nDefending:  +1\n\nPhysical: +1\n\nPace: +1\n\nFitness: -12\n\nSharpness: +4\n\nMoral: +0'
         else:
             if train_mode=='easy':
-                return f'{train_type.captilize()}: +1\n\nFitness: -3\n\nSharpness: +2\n\nMoral: +0'
+                return f'{train_type.capitalize()}: +1\n\nFitness: -3\n\nSharpness: +2\n\nMoral: +0'
             if train_mode=='medium':
-                return f'{train_type.captilize()}: +2\n\nFitness: -6\n\nSharpness: +3\n\nMoral: +0'
+                return f'{train_type.capitalize()}: +2\n\nFitness: -6\n\nSharpness: +3\n\nMoral: +0'
             else:
-                return f'{train_type.captilize()}: +3\n\nFitness: -9\n\nSharpness: +4\n\nMoral: +0'
+                return f'{train_type.capitalize()}: +3\n\nFitness: -9\n\nSharpness: +4\n\nMoral: +0'
