@@ -35,6 +35,7 @@ Squad_Frame1=tk.Frame(Game,bg=MENU_BG)
 Squad_Frame2=tk.Frame(Game,bg=MENU_BG)
 Player_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Select_Player_Frame=tk.Frame(Game,bg=MENU_BG)
+GK_Training_Type_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Type_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Mode_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Result_Frame=tk.Frame(Game,bg=MENU_BG)
@@ -152,6 +153,7 @@ Selected=None
 Currect_Formation='4-3-3'
 Training_Players=[]
 Changing_Selection=False
+GK_Training_Type=''
 Training_Type=''
 Training_Mode=''
 Training_Exit_Status=False
@@ -392,6 +394,7 @@ def back_player():
 
 def training_frame():
     Menu_Frame.place_forget()
+    GK_Training_Type_Frame.place_forget()
     Training_Type_Frame.place_forget()
     Training_Select_Player_Frame.place(x=0,y=0,width=1920,height=1080)
 
@@ -549,7 +552,20 @@ def limit_selection(event):
         Continue_to_Training_Type_Frame.place(x=720,y=750)
 
 def train_type_frame():
+    global Training_Players
     Training_Select_Player_Frame.place_forget()
+    Players_Position=[]
+    for player in Training_Players:
+        Players_Position.append(player_listbox()[player]['position'])
+    if 'GK' in Players_Position:
+        GK_Training_Type_Frame.place(x=0,y=0,width=1920,height=1080)
+    else:
+        Training_Type_Frame.place(x=0,y=0,width=1920,height=1080)
+
+def choosing_gk_train(train_type):
+    global GK_Training_Type
+    GK_Training_Type=train_type
+    GK_Training_Type_Frame.place_forget()
     Training_Type_Frame.place(x=0,y=0,width=1920,height=1080)
 
 def choosing_train(train_type):
@@ -611,7 +627,7 @@ def training_progress(value=0):
         Continue_Result_Training.place(x=660,y=770)
 
 def training_improvment():
-    global Training_Exit_Status,Training_Type,Training_Mode,Training_Players
+    global Training_Exit_Status,Training_Type,Training_Mode,Training_Players,GK_Training_Type
     if Training_Exit_Status==False:
         L_Training_Session.config(text='Training Complete')
         L_Report_Progressbar.place_forget()
@@ -637,6 +653,7 @@ def training_improvment():
         Continue_Result_Training.place_forget()
         Training_Exit_Status=not Training_Exit_Status
         Training_Players=[]
+        GK_Training_Type=''
         Training_Type=''
         Training_Mode=''
         main_menu()
@@ -1023,7 +1040,18 @@ L_Select_Players=tk.Label(Training_Select_Player_Frame,text='Select Players',fon
 Players_Listbox_Training=tk.Listbox(Training_Select_Player_Frame,selectmode=tk.MULTIPLE,font=TEXT_FONT,selectbackground="#d2d508",fg='white',bg=HEADER_MENU_BG,height=len(player_listbox()),width=35)
 L_Report_Listbox_Training=tk.Label(Training_Select_Player_Frame,font=BUTTON_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Continue_to_Training_Type_Frame=tk.Button(Training_Select_Player_Frame,text='Continue',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=train_type_frame)
-L_Choose_Training=tk.Label(Training_Type_Frame,text='Choose Training',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Choose_Training_Type_GK=tk.Label(GK_Training_Type_Frame,text='Choose Training Type',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+Diving_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Diving \n\n+ Diving',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_gk_train('diving'))
+Handling_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Handling \n\n+ Handling',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_gk_train('handling'))
+Kicking_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Kicking \n\n+ Kicking',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_gk_train('kicking'))
+Reflexes_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Reflexes \n\n+ Reflexes',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_gk_train('reflexes'))
+Speed_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Speed \n\n+ Speed',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_gk_train('speed'))
+Positioning_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Positioning \n\n+ Positioning',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_gk_train('positioning'))
+Goalkeeper_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Goalkeeper \n\n+ Diving\n\n+ Kicking\n\n+ Positioning',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_gk_train('goalkeeper'))
+Sweeperkeeper_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Sweeperkeeper \n\n+ Reflexes\n\n+ Speed\n\n+ Handling',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_gk_train('sweeperkeeper'))
+Balance_GK_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Balance \n\n+ All',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_gk_train('balance'))
+Back_GK_Frame_Players_Selection=tk.Button(GK_Training_Type_Frame,text='Back',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=training_frame)
+L_Choose_Training_Type_Players=tk.Label(Training_Type_Frame,text='Choose Training Type',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Physical_Training_Btn=tk.Button(Training_Type_Frame,text='Physical \n\n+ Physical',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('physical'))
 Shooting_Training_Btn=tk.Button(Training_Type_Frame,text='Shooting \n\n+ Shooting',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('shooting'))
 Passing_Training_Btn=tk.Button(Training_Type_Frame,text='Passing \n\n+ Passing',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_train('passing'))
@@ -1067,7 +1095,18 @@ Back_Menu_Squad2_Btn.place(x=100,y=730)
 L_Select_Players.place(x=620,y=50)
 Players_Listbox_Training.place(x=500,y=120)
 L_Report_Listbox_Training.place(x=625,y=700)
-L_Choose_Training.place(x=620,y=70)
+L_Choose_Training_Type_GK.place(x=620,y=70)
+L_Choose_Training_Type_Players.place(x=620,y=70)
+Diving_Training_Btn.place(x=220,y=170)
+Handling_Training_Btn.place(x=620,y=170)
+Kicking_Training_Btn.place(x=1020,y=170)
+Reflexes_Training_Btn.place(x=220,y=320)
+Speed_Training_Btn.place(x=620,y=320)
+Positioning_Training_Btn.place(x=1020,y=320)
+Goalkeeper_Training_Btn.place(x=220,y=470)
+Sweeperkeeper_Training_Btn.place(x=620,y=470)
+Balance_GK_Training_Btn.place(x=1020,y=470)
+Back_GK_Frame_Players_Selection.place(x=1330,y=730)
 Physical_Training_Btn.place(x=220,y=170)
 Shooting_Training_Btn.place(x=620,y=170)
 Passing_Training_Btn.place(x=1020,y=170)

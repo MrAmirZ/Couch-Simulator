@@ -1,15 +1,15 @@
 class Training_Engine:
-    def __init__(self,training,mode,starting):
-        self.training=training
+    def __init__(self,training_type,mode,starting,gk_training_type=None):
+        self.training=training_type
         self.mode=mode
         self.starting=starting
+        self.gk_training=gk_training_type
+        if isinstance(self.starting,dict):
+            self.starting=[self.starting]
         self.first_fitness=self.first_average_fitness()
         self.first_sharpness=self.first_average_sharpness()
         self.first_moral=self.first_average_moral()
-        if isinstance(self.starting,dict):
-            self.starting=[self.starting]
-        else:
-            self.check_training()
+        self.check_training()
 
     def first_average_fitness(self):
         First_Sum_Fitness=0
