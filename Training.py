@@ -1,5 +1,8 @@
+def player_stat(player,stat,amount):
+    player[stat]=min(player[stat]+amount,100)
+
 class Training_Engine:
-    def __init__(self,training_type,mode,starting,gk_training_type=None):
+    def __init__(self,training_type,mode,starting=None,gk_training_type=None):
         self.training=training_type
         self.mode=mode
         self.starting=starting
@@ -34,316 +37,461 @@ class Training_Engine:
     
     def check_training(self):
         for player in self.starting:
-            if self.training=='physical':
-                if self.mode=='easy':
-                    if player['position']!='GK':
-                        if player['physical']+1<=100:
-                            if player['fitness']-3>=0:
-                                if player['sharpness']+2<=100:
-                                    player['physical']+=1
-                                    player['fitness']-=3
-                                    player['sharpness']+=2
-                if self.mode=='medium':
-                    if player['position']!='GK':
-                        if player['physical']+2<=100:
+            if player['position']!='GK':
+                if self.training=='physical':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'physical',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'physical',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'physical',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='passing':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'passing',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'passing',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'passing',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='shooting':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'shooting',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'shooting',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'                     
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'shooting',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='defending':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'defending',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'defending',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'defending',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='dribbling':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'dribbling',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='medium':
                             if player['fitness']-6>=0:
-                                if player['sharpness']+3<=100:
-                                    player['physical']+=2
-                                    player['fitness']-=6
-                                    player['sharpness']+=3
-                if self.mode=='hard':
-                    if player['fitness']<20:
-                        return 'Fitness is too low for Hard Training.'
-                    else:
-                        if player['position']!='GK':
-                            if player['physical']+3<=100:
-                                if player['sharpness']+4<=100:
-                                    player['physical']+=3
-                                    player['fitness']-=9
-                                    player['sharpness']+=4
-            if self.training=='passing':
-                if self.mode=='easy':
-                    if player['position']!='GK':
-                        if player['passing']+1<=100:
-                            if player['fitness']-3>=0:
-                                if player['sharpness']+2<=100:
-                                    player['passing']+=1
-                                    player['fitness']-=3
-                                    player['sharpness']+=2
-                if self.mode=='medium':
-                    if player['position']!='GK':
-                        if player['passing']+2<=100:
-                            if player['fitness']-6>=0:
-                                if player['sharpness']+3<=100:
-                                    player['passing']+=2
-                                    player['fitness']-=6
-                                    player['sharpness']+=3
-                if self.mode=='hard':
-                    if player['fitness']<20:
-                        return 'Fitness is too low for Hard Training.'
-                    else:
-                        if player['position']!='GK':
-                            if player['passing']+3<=100:
-                                if player['sharpness']+4<=100:
-                                    player['passing']+=3
-                                    player['fitness']-=9
-                                    player['sharpness']+=4
-            if self.training=='shooting':
-                if self.mode=='easy':
-                    if player['position']!='GK':
-                        if player['shooting']+1<=100:
-                            if player['fitness']-3>=0:
-                                if player['sharpness']+2<=100:
-                                    player['shooting']+=1
-                                    player['fitness']-=3
-                                    player['sharpness']+=2
-                if self.mode=='medium':
-                    if player['position']!='GK':
-                        if player['shooting']+2<=100:
-                            if player['fitness']-6>=0:
-                                if player['sharpness']+3<=100:
-                                    player['shooting']+=2
-                                    player['fitness']-=6
-                                    player['sharpness']+=3
-                if self.mode=='hard':
-                    if player['fitness']<20:
-                        return 'Fitness is too low for Hard Training.'
-                    else:
-                        if player['position']!='GK':
-                            if player['shooting']+3<=100:
-                                if player['sharpness']+4<=100:
-                                    player['shooting']+=3
-                                    player['fitness']-=9
-                                    player['sharpness']+=4
-            if self.training=='defending':
-                if self.mode=='easy':
-                    if player['position']!='GK':
-                        if player['defending']+1<=100:
-                            if player['fitness']-3>=0:
-                                if player['sharpness']+2<=100:
-                                    player['defending']+=1
-                                    player['fitness']-=3
-                                    player['sharpness']+=2
-                if self.mode=='medium':
-                    if player['position']!='GK':
-                        if player['defending']+2<=100:
-                            if player['fitness']-6>=0:
-                                if player['sharpness']+3<=100:
-                                    player['defending']+=2
-                                    player['fitness']-=6
-                                    player['sharpness']+=3
-                if self.mode=='hard':
-                    if player['fitness']<20:
-                        return 'Fitness is too low for Hard Training.'
-                    else:
-                        if player['position']!='GK':
-                            if player['defending']+3<=100:
-                                if player['sharpness']+4<=100:
-                                    player['defending']+=3
-                                    player['fitness']-=9
-                                    player['sharpness']+=4
-            if self.training=='dribbling':
-                if self.mode=='easy':
-                    if player['position']!='GK':
-                        if player['dribbling']+1<=100:
-                            if player['fitness']-3>=0:
-                                if player['sharpness']+2<=100:
-                                    player['dribbling']+=1
-                                    player['fitness']-=3
-                                    player['sharpness']+=2
-                if self.mode=='medium':
-                    if player['position']!='GK':
-                        if player['dribbling']+2<=100:
-                            if player['fitness']-6>=0:
-                                if player['sharpness']+3<=100:
-                                    player['dribbling']+=2
-                                    player['fitness']-=6
-                                    player['sharpness']+=3
-                if self.mode=='hard':
-                    if player['fitness']<20:
-                        return 'Fitness is too low for Hard Training.'
-                    else:
-                        if player['position']!='GK':
-                            if player['dribbling']+3<=100:
-                                if player['sharpness']+4<=100:
-                                    player['dribbling']+=3
-                                    player['fitness']-=9
-                                    player['sharpness']+=4
-            if self.training=='pace':
-                if self.mode=='easy':
-                    if player['position']!='GK':
-                        if player['pace']+1<=100:
-                            if player['fitness']-3>=0:
-                                if player['sharpness']+2<=100:
-                                    player['pace']+=1
-                                    player['fitness']-=3
-                                    player['sharpness']+=2
-                if self.mode=='medium':
-                    if player['position']!='GK':
-                        if player['pace']+2<=100:
-                            if player['fitness']-6>=0:
-                                if player['sharpness']+3<=100:
-                                    player['pace']+=2
-                                    player['fitness']-=6
-                                    player['sharpness']+=3
-                if self.mode=='hard':
-                    if player['fitness']<20:
-                        return 'Fitness is too low for Hard Training.'
-                    else:
-                        if player['position']!='GK':
-                            if player['pace']+3<=100:
-                                if player['sharpness']+4<=100:
-                                    player['pace']+=3
-                                    player['fitness']-=9
-                                    player['sharpness']+=4
-            if self.training=='attacking':
-                if self.mode=='easy':
-                    if player['position']!='GK':
-                        if player['shooting']+0.5<=100 and player['dribbling']+0.5<=100 and player['passing']+0.5<=100 and player['pace']+0.5<=100:
-                            if player['fitness']-4>=0:
-                                if player['sharpness']+2<=100:
-                                    player['shooting']+=0.5
-                                    player['dribbling']+=0.5
-                                    player['passing']+=0.5
-                                    player['pace']+=0.5
-                                    player['fitness']-=4
-                                    player['sharpness']+=2
-                if self.mode=='medium':
-                    if player['position']!='GK':
-                        if player['shooting']+1<=100 and player['dribbling']+1<=100 and player['passing']+1<=100 and player['pace']+1<=100:
+                                player['fitness']-=6
+                                player_stat(player,'dribbling',2)
+                                player_stat(player,'sharpness',3)
+                            else:
+                                return 'your fitness is very low.'                             
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'dribbling',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='pace':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'pace',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitnes is very low'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'pace',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'pace',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='attacking':
+                    if self.mode=='easy':
+                        if player['fitness']-4>=0:
+                            player['fitness']-=4
+                            player_stat(player,'shooting',0.5)
+                            player_stat(player,'pace',0.5)
+                            player_stat(player,'passing',0.5)
+                            player_stat(player,'dribbling',0.5)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='medium':
+                        if player['fitness']-8>=0:
+                            player['fitness']-=8
+                            player_stat(player,'shooting',1)
+                            player_stat(player,'pace',1)
+                            player_stat(player,'dribbling',1)
+                            player_stat(player,'passing',1)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=12
+                            player_stat(player,'shooting',2)
+                            player_stat(player,'dribbling',2)
+                            player_stat(player,'passing',2)
+                            player_stat(player,'pace',2)
+                            player_stat(player,'sharpness',4)
+                if self.training=='defensive':
+                    if self.mode=='easy':
+                        if player['fitness']-4>=0:
+                            player['fitness']-=4
+                            player_stat(player,'defending',0.5)
+                            player_stat(player,'physical',0.5)
+                            player_stat(player,'pace',0.5)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-8>=0:
+                            player['fitness']-=8
+                            player_stat(player,'defending',1)
+                            player_stat(player,'physical',1)
+                            player_stat(player,'pace',1)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=12
+                            player_stat(player,'defending',2)
+                            player_stat(player,'physical',2)
+                            player_stat(player,'pace',2)
+                            player_stat(player,'sharpness',4)
+                if self.training=='balance':
+                    if self.mode=='easy':
+                        if player['fitness']-4>=0:
+                            player['fitness']-=4
+                            player_stat(player,'shooting',0.3)
+                            player_stat(player,'dribbling',0.3)
+                            player_stat(player,'pace',0.3)
+                            player_stat(player,'passing',0.3)
+                            player_stat(player,'defending',0.3)
+                            player_stat(player,'physical',0.3)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
                             if player['fitness']-8>=0:
-                                if player['sharpness']+3<=100:
-                                    player['shooting']+=1
-                                    player['dribbling']+=1
-                                    player['passing']+=1
-                                    player['pace']+=1
-                                    player['fitness']-=8
-                                    player['sharpness']+=3
-                if self.mode=='hard':
-                    if player['fitness']<20:
-                        return 'Fitness is too low for Hard Training.'
-                    else:
-                        if player['position']!='GK':
-                            if player['shooting']+2<=100 and player['dribbling']+2<=100 and player['passing']+2<=100 and player['pace']+2<=100:
-                                if player['sharpness']+4<=100:
-                                    player['shooting']+=2
-                                    player['dribbling']+=2
-                                    player['passing']+=2
-                                    player['pace']+=2
-                                    player['fitness']-=12
-                                    player['sharpness']+=4
-            if self.training=='defensive':
-                if self.mode=='easy':
-                    if player['position']!='GK':
-                        if player['defending']+0.5<=100 and player['physical']+0.5<=100 and player['pace']+0.5<=100:
-                            if player['fitness']-4>=0:
-                                if player['sharpness']+2<=100:
-                                    player['physical']+=0.5
-                                    player['defending']+=0.5
-                                    player['pace']+=0.5
-                                    player['fitness']-=4
-                                    player['sharpness']+=2
-                if self.mode=='medium':
-                    if player['position']!='GK':
-                        if player['defending']+1<=100 and player['physical']+1<=100 and player['pace']+1<=100:
-                            if player['fitness']-8>=0:
-                                if player['sharpness']+3<=100:
-                                    player['physical']+=1
-                                    player['defending']+=1
-                                    player['pace']+=1
-                                    player['fitness']-=8
-                                    player['sharpness']+=3                
-                if self.mode=='hard':
-                    if player['fitness']<20:
-                        return 'Fitness is too low for Hard Training.'
-                    else:
-                        if player['position']!='GK':
-                            if player['defending']+2<=100 and player['physical']+2<=100 and player['pace']+2<=100:
-                                if player['sharpness']+4<=100:
-                                    player['physical']+=2
-                                    player['defending']+=2
-                                    player['pace']+=2
-                                    player['fitness']-=12
-                                    player['sharpness']+=4            
-            if self.training=='balance':
-                if self.mode=='easy':
-                    if player['position']!='GK':
-                        if player['shooting']+0.3<=100 and player['dribbling']+0.3<=100 and player['passing']+0.3<=100 and player['defending']+0.3<=100 and player['physical']+0.3<=100 and player['pace']+0.3<=100:
-                            if player['fitness']-4>=0:
-                                if player['sharpness']+2<=100:
-                                    player['shooting']+=0.3
-                                    player['dribbling']+=0.3
-                                    player['passing']+=0.3
-                                    player['pace']+=0.3
-                                    player['physical']+=0.3
-                                    player['defending']+=0.3
-                                    player['fitness']-=4
-                                    player['sharpness']+=2                   
-                    if player['position']=='GK':
-                        if player['diving']+0.3<=100 and player['handling']+0.3<=100 and player['kicking']+0.3<=100 and player['reflexes']+0.3<=100 and player['speed']+0.3<=100 and player['positioning']+0.3<=100:
-                            if player['fitness']-4>=0:
-                                if player['sharpness']+2<=100:
-                                    player['diving']+=0.3
-                                    player['handling']+=0.3
-                                    player['kicking']+=0.3
-                                    player['reflexes']+=0.3
-                                    player['speed']+=0.3
-                                    player['positioning']+=0.3
-                                    player['fitness']-=4
-                                    player['sharpness']+=2
-                if self.mode=='medium':
-                    if player['position']!='GK':
-                        if player['shooting']+0.5<=100 and player['dribbling']+0.5<=100 and player['passing']+0.5<=100 and player['defending']+0.5<=100 and player['physical']+0.5<=100 and player['pace']+0.5<=100:
-                            if player['fitness']-8>=0:
-                                if player['sharpness']+3<=100:
-                                    player['shooting']+=0.5
-                                    player['dribbling']+=0.5
-                                    player['passing']+=0.5
-                                    player['pace']+=0.5
-                                    player['physical']+=0.5
-                                    player['defending']+=0.5
-                                    player['fitness']-=8
-                                    player['sharpness']+=3
-                    if player['position']=='GK':
-                        if player['diving']+0.5<=100 and player['handling']+0.5<=100 and player['kicking']+0.5<=100 and player['reflexes']+0.5<=100 and player['speed']+0.5<=100 and player['positioning']+0.5<=100:
-                            if player['fitness']-8>=0:
-                                if player['sharpness']+3<=100:
-                                    player['diving']+=0.5
-                                    player['handling']+=0.5
-                                    player['kicking']+=0.5
-                                    player['reflexes']+=0.5
-                                    player['speed']+=0.5
-                                    player['positioning']+=0.5
-                                    player['fitness']-=8
-                                    player['sharpness']+=3
-                if self.mode=='hard':
-                    if player['fitness']<20:
-                        return 'Fitness is too low for Hard Training.'
-                    else:
-                        if player['position']!='GK':
-                            if player['shooting']+1<=100 and player['dribbling']+1<=100 and player['passing']+1<=100 and player['defending']+1<=100 and player['physical']+1<=100 and player['pace']+1<=100:
-                                if player['fitness']-12>=0:
-                                    if player['sharpness']+4<=100:
-                                        player['shooting']+=1
-                                        player['dribbling']+=1
-                                        player['passing']+=1
-                                        player['pace']+=1
-                                        player['physical']+=1
-                                        player['defending']+=1
-                                        player['fitness']-=12
-                                        player['sharpness']+=4
-                        if player['position']=='GK':
-                            if player['diving']+1<=100 and player['handling']+1<=100 and player['kicking']+1<=100 and player['reflexes']+1<=100 and player['speed']+1<=100 and player['positioning']+1<=100:
-                                if player['fitness']-12>=0:
-                                    if player['sharpness']+34<=100:
-                                        player['diving']+=1
-                                        player['handling']+=1
-                                        player['kicking']+=1
-                                        player['reflexes']+=1
-                                        player['speed']+=1
-                                        player['positioning']+=1
-                                        player['fitness']-=12
-                                        player['sharpness']+=4
+                                player['fitness']-=8
+                                player_stat(player,'shooting',0.5)
+                                player_stat(player,'dribbling',0.5)
+                                player_stat(player,'pace',0.5)
+                                player_stat(player,'passing',0.5)
+                                player_stat(player,'defending',0.5)
+                                player_stat(player,'physical',0.5)
+                                player_stat(player,'sharpness',3)
+                            else:
+                                return 'your fitness is very low.'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=12
+                            player_stat(player,'shooting',1)
+                            player_stat(player,'dribbling',1)
+                            player_stat(player,'pace',1)
+                            player_stat(player,'passing',1)
+                            player_stat(player,'defending',1)
+                            player_stat(player,'physical',1)
+                            player_stat(player,'sharpness',4)
+            else:
+                if self.training=='diving':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'diving',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'diving',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'diving',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='handling':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'handling',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'handling',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'handling',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='kicking':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'kicking',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'kicking',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'kicking',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='reflexes':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'reflexes',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'reflexes',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'reflexes',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='speed':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'speed',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'speed',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'speed',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='positioning':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'positioning',1)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'positioning',2)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'positioning',3)
+                            player_stat(player,'sharpness',4)
+                if self.training=='sweeperkeeper':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'speed',0.5)
+                            player_stat(player,'reflexes',0.5)
+                            player_stat(player,'handling',0.5)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'speed',1)
+                            player_stat(player,'reflexes',1)
+                            player_stat(player,'handling',1)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'speed',2)
+                            player_stat(player,'reflexes',2)
+                            player_stat(player,'handling',2)
+                            player_stat(player,'sharpness',4)
+                if self.training=='goalkeeper':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'kicking',0.5)
+                            player_stat(player,'diving',0.5)
+                            player_stat(player,'positionning',0.5)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'kicking',1)
+                            player_stat(player,'diving',1)
+                            player_stat(player,'positioning',1)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'kicking',2)
+                            player_stat(player,'diving',2)
+                            player_stat(player,'positioning',2)
+                            player_stat(player,'sharpness',4)
+                if self.training=='balance':
+                    if self.mode=='easy':
+                        if player['fitness']-3>=0:
+                            player['fitness']-=3
+                            player_stat(player,'diving',0.3)
+                            player_stat(player,'reflexes',0.3)
+                            player_stat(player,'speed',0.3)
+                            player_stat(player,'positioning',0.3)
+                            player_stat(player,'kicking',0.3)
+                            player_stat(player,'handling',0.3)
+                            player_stat(player,'sharpness',2)
+                        else:
+                            return 'your fitness is very low.'
+                    if self.mode=='medium':
+                        if player['fitness']-6>=0:
+                            player['fitness']-=6
+                            player_stat(player,'diving',0.5)
+                            player_stat(player,'reflexes',0.5)
+                            player_stat(player,'speed',0.5)
+                            player_stat(player,'positioning',0.5)
+                            player_stat(player,'kicking',0.5)
+                            player_stat(player,'handling',0.5)
+                            player_stat(player,'sharpness',3)
+                        else:
+                            return 'your fitness is very low'
+                    if self.mode=='hard':
+                        if player['fitness']<20:
+                            return 'Fitness is too low for Hard Training.'
+                        else:
+                            player['fitness']-=9
+                            player_stat(player,'diving',1)
+                            player_stat(player,'reflexes',1)
+                            player_stat(player,'speed',1)
+                            player_stat(player,'positioning',1)
+                            player_stat(player,'kicking',1)
+                            player_stat(player,'handling',1)
+                            player_stat(player,'sharpness',4)
 
     def average_fitness(self):
         Second_Sum_Fitness=0
