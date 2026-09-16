@@ -49,6 +49,7 @@ Tactic_Separator_Frame=tk.Frame(Tactic_Team_Frame2,bg="#3f3f46")
 Statistics_Goal_Frame=tk.Frame(Game,bg=MENU_BG)
 Calendar_Frame=tk.Frame(Game,bg=MENU_BG)
 Match_Frame=tk.Frame(Game,bg=MENU_BG)
+Match_Separator_Frame=tk.Frame(Match_Frame,bg='white',width=3)
 
 s1=tk.StringVar()
 s2=tk.StringVar()
@@ -155,8 +156,7 @@ Selected=None
 Currect_Formation='4-3-3'
 Training_Players=[]
 Changing_Selection=False
-GK_Training_Type=''
-Training_Type=''
+Training_Type=[]
 Training_Mode=''
 Training_Exit_Status=False
 IMG_Team_Logo=None
@@ -523,8 +523,8 @@ def show_player_listbox_training():
         Players_Listbox_Training.insert(tk.END,player['name'])
 
 def limit_selection(event):
-    global Training_Players
-    global Changing_Selection
+    global Training_Players,Changing_Selection
+    L_Report_Listbox_Training.config(text="You selected 0 players")
     if Changing_Selection:
         return
     current_selection = list(Players_Listbox_Training.curselection())
@@ -565,8 +565,8 @@ def train_type_frame():
         Training_Type_Frame.place(x=0,y=0,width=1920,height=1080)
 
 def choosing_gk_train(train_type):
-    global GK_Training_Type
-    GK_Training_Type=train_type
+    global Training_Type
+    Training_Type.append(train_type)
     Players_Position.remove('GK')
     if Players_Position!=[]:
         GK_Training_Type_Frame.place_forget()
@@ -577,7 +577,7 @@ def choosing_gk_train(train_type):
 
 def choosing_train(train_type):
     global Training_Type
-    Training_Type=train_type
+    Training_Type.append(train_type)
     Training_Type_Frame.place_forget()
     Training_Mode_Frame.place(x=0,y=0,width=1920,height=1080)
 
@@ -592,7 +592,7 @@ def choosing_train_mode(train_mode):
 
 def back_to_training_frame():
     global Training_Type
-    Training_Type=''
+    Training_Type=[]
     Training_Mode_Frame.place_forget()
     Training_Type_Frame.place(x=0,y=0,width=1920,height=1080)
 
@@ -601,13 +601,16 @@ def result_training():
     Selected_Players=[]
     for i in Training_Players:
         Selected_Players.append(player_listbox()[i])
-    Training=Train.Training_Engine(Training_Type,Training_Mode,Selected_Players)
-    L_Training_Type.config(text=Training_Type.capitalize())
+    Training=Train.Training_Engine(Selected_Players,Training_Mode,Training_Type)
+    if len(Training_Type)==1:
+        L_Training_Type.config(text=Training_Type[0].capitalize())
+    else:
+        L_Training_Type.config(text=f'{Training_Type[0].capitalize()} and {Training_Type[-1].capitalize()}')
     L_Training_Mode.config(text=Training_Mode.capitalize())
     L_Report_Fitness.config(text=f'Fitness\n\n{Training.average_fitness()}  {Training.defrencce_fitness()}')
     L_Report_Sharpness.config(text=f'Sharpness\n\n{Training.average_sharpness()}  {Training.defrenccd_sharpness()}')
     L_Report_Moral.config(text=f'Moral\n\n{Training.average_moral()}  {Training.defrencce_moral()}')
-    L_Report_Improvments.config(text=Training.return_result(Training_Type,Training_Mode))
+    
 
 def training_progress(value=0):
     if value<=100:
@@ -634,8 +637,14 @@ def training_progress(value=0):
         Continue_Result_Training.place(x=660,y=770)
 
 def training_improvment():
-    global Training_Exit_Status,Training_Type,Training_Mode,Training_Players,GK_Training_Type
+    global Training_Exit_Status,Training_Type,Training_Mode,Training_Players
     if Training_Exit_Status==False:
+        L_Name_Player1_Improvments.place_forget()
+        L_Name_Player2_Improvments.place_forget()
+        L_Name_Player3_Improvments.place_forget()
+        Selected_Players=[]
+        for i in Training_Players:
+            Selected_Players.append(player_listbox()[i])
         L_Training_Session.config(text='Training Complete')
         L_Report_Progressbar.place_forget()
         L_Report_Percent.place_forget()
@@ -644,7 +653,21 @@ def training_improvment():
         L_Report_Moral.place_forget()
         Training_Progress.place_forget()
         L_Improvments.place(x=650,y=270)
-        L_Report_Improvments.place(x=430,y=350)
+        if len(Selected_Players)==1:
+            L_Name_Player1_Improvments.config(text=Selected_Players[0]['name'])
+            L_Name_Player1_Improvments.place(x=700,y=330)
+        elif len(Selected_Players)==2:
+            L_Name_Player1_Improvments.config(text=Selected_Players[0]['name'])
+            L_Name_Player2_Improvments.config(text=Selected_Players[1]['name'])
+            L_Name_Player1_Improvments.place(x=450,y=330)
+            L_Name_Player2_Improvments.place(x=950,y=330)
+        elif len(Selected_Players)==3:
+            L_Name_Player1_Improvments.config(text=Selected_Players[0]['name'])
+            L_Name_Player2_Improvments.config(text=Selected_Players[1]['name'])
+            L_Name_Player3_Improvments.config(text=Selected_Players[2]['name'])
+            L_Name_Player1_Improvments.place(x=300,y=330)
+            L_Name_Player2_Improvments.place(x=700,y=330)
+            L_Name_Player3_Improvments.place(x=1100,y=330)
         Continue_Result_Training.place(x=700,y=730)
         Training_Exit_Status=not Training_Exit_Status
     else:
@@ -656,12 +679,13 @@ def training_improvment():
         L_Report_Moral.place(x=1000,y=650)
         Training_Progress.place(x=400,y=450)
         L_Improvments.place_forget()
-        L_Report_Improvments.place_forget()
         Continue_Result_Training.place_forget()
+        L_Name_Player1_Improvments.place_forget()
+        L_Name_Player2_Improvments.place_forget()
+        L_Name_Player3_Improvments.place_forget()
         Training_Exit_Status=not Training_Exit_Status
         Training_Players=[]
-        GK_Training_Type=''
-        Training_Type=''
+        Training_Type=[]
         Training_Mode=''
         main_menu()
 
@@ -949,12 +973,15 @@ def play_match():
     global Game_Calendar,Currect_Day,Game_Player,match
     Menu_Frame.place_forget()
     Match_Frame.place(x=0,y=0,width=1920,height=1080)
+    Match_Separator_Frame.place(x=100,y=150,width=1350)
     for i in Game_Calendar[Currect_Day]:
         if Team in i:
             home=Game_Player[s4.get()][i[0]]
             away=Game_Player[s4.get()][i[1]]
             L_Home_Game.config(text=i[0])
+            IMG_Home_Game.config(file=Base_Path/Game_Player[s4.get()][i[0]]['logo'])
             L_Away_Game.config(text=i[1])
+            IMG_Away_Game.config(file=Base_Path/Game_Player[s4.get()][i[1]]['logo'])
             match=mtc.Match_Engine(home,away)
 def start_match():
     Start_Game_Btn.place_forget()
@@ -1045,7 +1072,7 @@ Back_Menu_Squad1_Btn=tk.Button(Squad_Frame1,text='Back Menu',font=TEXT_FONT,comm
 Back_Menu_Squad2_Btn=tk.Button(Squad_Frame2,text='Back Menu',font=TEXT_FONT,command=main_menu,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_Select_Players=tk.Label(Training_Select_Player_Frame,text='Select Players',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Players_Listbox_Training=tk.Listbox(Training_Select_Player_Frame,selectmode=tk.MULTIPLE,font=TEXT_FONT,selectbackground="#d2d508",fg='white',bg=HEADER_MENU_BG,height=len(player_listbox()),width=35)
-L_Report_Listbox_Training=tk.Label(Training_Select_Player_Frame,font=BUTTON_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Report_Listbox_Training=tk.Label(Training_Select_Player_Frame,text="You selected 0 players",font=BUTTON_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Continue_to_Training_Type_Frame=tk.Button(Training_Select_Player_Frame,text='Continue',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=train_type_frame)
 L_Choose_Training_Type_GK=tk.Label(GK_Training_Type_Frame,text='Choose Training Type',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Diving_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Diving \n\n+ Diving',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_gk_train('diving'))
@@ -1086,7 +1113,9 @@ L_Report_Fitness=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MEN
 L_Report_Sharpness=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Report_Moral=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Improvments=tk.Label(Training_Result_Frame,text='Improvments',font=SUBTITLE_FONT,fg=MENU_ITEM_FG,bg=MENU_BG)
-L_Report_Improvments=tk.Label(Training_Result_Frame,font=BUTTON_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Name_Player1_Improvments=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Name_Player2_Improvments=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Name_Player3_Improvments=tk.Label(Training_Result_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 Squad_Menu_Btn.place(x=50,y=700)
 Transfer_Market_Menu_Btn.place(x=200,y=700)
 Training_Menu_Btn.place(x=450,y=700)
@@ -1270,15 +1299,24 @@ L_Result_Match.place(x=680,y=400)
 Start_Game_Btn=tk.Button(Match_Frame,text='Start',font=TEXT_FONT,command=start_match,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Start_Game_Btn.place(x=700,y=700)
 L_Home_Game=tk.Label(Match_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+IMG_Home_Game=tk.PhotoImage()
+IMG_Home_Game=IMG_Home_Game.subsample(17,17)
+L_IMG_Home_Game=tk.Label(Match_Frame,bg=MENU_BG,image=IMG_Home_Game)
 L_Away_Game=tk.Label(Match_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+IMG_Away_Game=tk.PhotoImage()
+IMG_Away_Game=IMG_Away_Game.subsample(17,17)
+L_IMG_Away_Game=tk.Label(Match_Frame,bg=MENU_BG,image=IMG_Away_Game)
 L_VS_Game=tk.Label(Match_Frame,text='VS',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Home_Goal=tk.Label(Match_Frame,text='0',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Away_Goal=tk.Label(Match_Frame,text='0',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+Back_Match_to_Menu_Btn=tk.Button(Match_Frame)
 L_Home_Game.place(x=200,y=50)
-L_VS_Game.place(x=700,y=50)
+L_IMG_Home_Game.place(x=100,y=50)
+L_VS_Game.place(x=710,y=50)
 L_Away_Game.place(x=1200,y=50)
-L_Home_Goal.place(x=500,y=50)
-L_Away_Goal.place(x=900,y=50)
+L_IMG_Away_Game.place(x=1300,y=50)
+L_Home_Goal.place(x=510,y=50)
+L_Away_Goal.place(x=910,y=50)
 
 for i in range(12):
     row=[]
