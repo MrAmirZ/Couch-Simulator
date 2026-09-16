@@ -8,10 +8,13 @@ import Match as mtc
 import Calendar as cal
 import Training as Train
 
+Base_Path=Path(__file__).parent
+
 Game=tk.Tk()
 Game.title('Couch Simulatur')
 Game.geometry('1920x1080')
 Game.attributes("-fullscreen",True)
+Game.iconbitmap(Base_Path/'Assets/Images/icon-48x48.ico')
 
 SUBTITLE_FONT=('bahnschrift',22)
 TEXT_FONT=('bahnschrift',18)
@@ -79,7 +82,6 @@ r10=tk.StringVar()
 r11=tk.StringVar()
 r12=tk.StringVar()
 
-Base_Path=Path(__file__).parent
 Fullscreen=True
 Game_Player=copy.deepcopy(players)
 q=0
@@ -552,7 +554,7 @@ def limit_selection(event):
         Continue_to_Training_Type_Frame.place(x=720,y=750)
 
 def train_type_frame():
-    global Training_Players
+    global Training_Players,Players_Position
     Training_Select_Player_Frame.place_forget()
     Players_Position=[]
     for player in Training_Players:
@@ -565,8 +567,13 @@ def train_type_frame():
 def choosing_gk_train(train_type):
     global GK_Training_Type
     GK_Training_Type=train_type
-    GK_Training_Type_Frame.place_forget()
-    Training_Type_Frame.place(x=0,y=0,width=1920,height=1080)
+    Players_Position.remove('GK')
+    if Players_Position!=[]:
+        GK_Training_Type_Frame.place_forget()
+        Training_Type_Frame.place(x=0,y=0,width=1920,height=1080)
+    else:
+        GK_Training_Type_Frame.place_forget()
+        Training_Mode_Frame.place(x=0,y=0,width=1920,height=1080)
 
 def choosing_train(train_type):
     global Training_Type
