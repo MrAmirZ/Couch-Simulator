@@ -1000,7 +1000,7 @@ def play_match():
             IMG_Away_Game=tk.PhotoImage(file=Base_Path/Game_Player[s4.get()][i[1]]['logo'])
             IMG_Away_Game=IMG_Away_Game.subsample(18,18)
             L_IMG_Away_Game.config(image=IMG_Away_Game)
-            match=mtc.Match_Engine(home,away)
+            match=mtc.Match_Engine(home,away,Game_Player[s4.get()][home],Game_Player[s4.get()][away])
 def start_match():
     Start_Game_Btn.place_forget()
     Tactics_Match_Btn.place_forget()
@@ -1358,7 +1358,7 @@ Back_Match_to_Menu_Btn=tk.Button(Match_Frame,text='Back',bg=HEADER_MENU_BG,fg=ME
 Back_Match_to_Menu_Btn.place(x=200,y=760)
 Pause_Match_Btn=tk.Button(Match_Frame,text='Pause',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=pause_match)
 Continue_Match_Btn=tk.Button(Match_Frame,text='Continue',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=continue_match)
-Continue_Match_to_Menu=tk.Button(Match_Frame,text='Continue',font=TEXT_FONT,fg=MENU_ITEM_FG,command=end_game)
+Continue_Match_to_Menu=tk.Button(Match_Frame,text='Continue',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=end_game)
 L_Home_Game=tk.Label(Match_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_IMG_Home_Game=tk.Label(Match_Frame,bg=MENU_BG)
 L_Away_Game=tk.Label(Match_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)

@@ -1,12 +1,11 @@
 import random
-from Couch_Simulatur import Game_Player,s4
 
 class Match_Engine:
-    def __init__(self,home,away):
-        self.home=Game_Player[s4.get()][home]
-        self.away=Game_Player[s4.get()][away]
-        self.name_home=home
-        self.name_away=away
+    def __init__(self,name_home,name_away,home,away):
+        self.home=home
+        self.away=away
+        self.name_home=name_home
+        self.name_away=name_away
         self.home_goal=0
         self.away_goal=0
         self.home_possession=0
@@ -277,7 +276,6 @@ class Match_Engine:
             return 'goal'
         return 'save'
     def game_engine(self):
-        global team_name
         if self.minute==45:
             self.pause=True
             return 'half time'
@@ -285,27 +283,25 @@ class Match_Engine:
             return 'full time'
         self.add_minute()
         team=self.attack_team()
+        if team=='home':
+            team_name=self.name_home
+        else:
+            team_name=self.name_away
         if self.shot_chance(team)=='shot':
             if team=='home':
                 self.add_home_shots()
-                team_name=self.name_home
             else:
                 self.add_away_shots()
-                team_name=self.name_away
             if self.shots_on_target_chance(team)=='on target':
                 if team=='home':
                     self.add_home_shots_on_target()
-                    team_name=self.name_home
                 else:
                     self.add_away_shots_on_target()
-                    team_name=self.name_away
                 if self.goal_chance(team)=='goal':
                     if team=='home':
                         self.add_home_goal()
-                        team_name=self.name_home
                     else:
                         self.add_away_goal()
-                        team_name=self.name_away
                     return f'{team_name} goal'
                 return f'{team_name} save'
             return f'{team_name} off target'
