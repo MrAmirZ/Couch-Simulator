@@ -161,6 +161,7 @@ Training_Mode=''
 Training_Exit_Status=False
 IMG_Team_Logo=None
 L_Place_Logo=None
+Match_After=None
 
 def toggle_fullscreen(event=None):
     global Fullscreen
@@ -203,21 +204,26 @@ def select_team():
             Select_couch_Frame.place_forget()
             Select_Team_Frame.place(x=0,y=0,width=1920,height=1080)
             L_Report_Age.config(text='')
+            next_team()
+            previous_team()
     elif not m1 or not m2 or not m3:
         L_Report_Age.config(text='Fill all the Field')
 
 def check_country():
-    global Last_Country_Selected,q,Team,Teams
+    global Last_Country_Selected,q,Team,Teams,IMG_Couch_Team
     if Last_Country_Selected!=s4.get():
         Last_Country_Selected=s4.get()
         q=0
         Teams=list(Game_Player[s4.get()].keys())
         Team=Teams[0]
         L_Couch_Team.config(text=Team)
+        IMG_Couch_Team=tk.PhotoImage(file=Base_Path/Game_Player[s4.get()][Team]['logo'])
+        IMG_Couch_Team=IMG_Couch_Team.subsample(18,18)
+        L_Place_Couch_Team.config(image=IMG_Couch_Team)
     Select_Team_Frame.after(1,check_country)
 
 def next_team():
-    global q,Last_Country_Selected,Team,Teams
+    global q,Last_Country_Selected,Team,Teams,IMG_Couch_Team
     if Last_Country_Selected!=s4.get():
         q=0
         Last_Country_Selected=s4.get()
@@ -227,9 +233,12 @@ def next_team():
         q=0
     Team=Teams[q]
     L_Couch_Team.config(text=Team)
+    IMG_Couch_Team=tk.PhotoImage(file=Base_Path/Game_Player[s4.get()][Team]['logo'])
+    IMG_Couch_Team=IMG_Couch_Team.subsample(18,18)
+    L_Place_Couch_Team.config(image=IMG_Couch_Team)
 
 def previous_team():
-    global q,Last_Country_Selected,Team,Teams
+    global q,Last_Country_Selected,Team,Teams,IMG_Couch_Team
     if Last_Country_Selected!=s4.get():
         q=0
         Last_Country_Selected=s4.get()
@@ -239,6 +248,9 @@ def previous_team():
         q=len(Teams)-1
     Team=Teams[q]
     L_Couch_Team.config(text=Team)
+    IMG_Couch_Team=tk.PhotoImage(file=Base_Path/Game_Player[s4.get()][Team]['logo'])
+    IMG_Couch_Team=IMG_Couch_Team.subsample(18,18)
+    L_Place_Couch_Team.config(image=IMG_Couch_Team)
 
 def confirm():
     global s1,s2,s3,Confirm_Win,Confirm_Win_Control,s,n,Loading_Time
@@ -272,7 +284,7 @@ def back_confirm():
     Confirm_Win_Control=0
 
 def loading():
-    global Confirm_Win,s,n,Loading_Time,L_Loading,Teams,Currect_Formation,IMG_Team_Logo,L_Place_Logo
+    global Confirm_Win,s,n,Loading_Time,L_Loading,Teams,Currect_Formation,IMG_Team_Logo,L_Place_Logo,Game_Calendar
     Confirm_Win.destroy()
     Select_Team_Frame.place_forget()
     Loading_Frame.place(x=0,y=0,width=1920,height=1080)
@@ -288,6 +300,7 @@ def loading():
         Loading_Frame.place_forget()
         Teams=list(Game_Player[s4.get()].keys())
         create_league()
+        Game_Calendar=cal.create_calendar(Teams)
         L_Team_Name.config(text=f'{Team} \n Team')
         L_Team_Budget.config(text=f'{readonly_number(Game_Player[s4.get()][Team]['budget'])}$ \n Budget')
         Currect_Formation=Game_Player[s4.get()][Team]['formation']
@@ -310,7 +323,7 @@ def create_league():
         League[team] = {"P": 0,"W": 0,"D": 0,"L": 0,"GF": 0,"GA": 0,"GD": 0,"PTS": 0}
 
 def main_menu():
-    global Teams,Game_Calendar,Training_Players
+    global Teams,Training_Players
     Training_Players=[]
     Squad_Frame1.place_forget()
     Squad_Frame2.place_forget()
@@ -320,11 +333,11 @@ def main_menu():
     Training_Result_Frame.place_forget()
     Statistics_Goal_Frame.place_forget()
     Calendar_Frame.place_forget()
+    Match_Frame.place_forget()
     Header_Menu_Frame.place(x=0,y=0,width=1920,height=90)
     Menu_Separator_Frame.place(x=0,y=91,width=1920,height=1)
     Menu_Frame.place(x=0,y=92,width=1920,height=1080)
     Teams=list(Game_Player[s4.get()].keys())
-    Game_Calendar=cal.create_calendar(Teams)
     L_Team_Name.config(text=f'{Team} \n Team')
     L_Team_Budget.config(text=f'{readonly_number(Game_Player[s4.get()][Team]['budget'])}$ \n Budget')
     Currect_Formation=Game_Player[s4.get()][Team]['formation']
@@ -402,6 +415,7 @@ def training_frame():
 
 def tactic_team():
     Menu_Frame.place_forget()
+    Match_Frame.place_forget()
     Tactic_Team_Frame1.place(x=0,y=0,width=1920,height=1080)
     players_formation(Currect_Formation)
     L_Overall_Team.config(text=f'Overall: {show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)}')
@@ -970,41 +984,79 @@ def calendar():
     Calendar_Frame.place(x=0,y=0,width=1920,height=1080)
 
 def play_match():
-    global Game_Calendar,Currect_Day,Game_Player,match
+    global Game_Calendar,Currect_Day,Game_Player,match,IMG_Home_Game,IMG_Away_Game
     Menu_Frame.place_forget()
     Match_Frame.place(x=0,y=0,width=1920,height=1080)
     Match_Separator_Frame.place(x=100,y=150,width=1350)
     for i in Game_Calendar[Currect_Day]:
         if Team in i:
-            home=Game_Player[s4.get()][i[0]]
-            away=Game_Player[s4.get()][i[1]]
+            home=i[0]
+            away=i[1]
             L_Home_Game.config(text=i[0])
-            IMG_Home_Game.config(file=Base_Path/Game_Player[s4.get()][i[0]]['logo'])
             L_Away_Game.config(text=i[1])
-            IMG_Away_Game.config(file=Base_Path/Game_Player[s4.get()][i[1]]['logo'])
+            IMG_Home_Game=tk.PhotoImage(file=Base_Path/Game_Player[s4.get()][i[0]]['logo'])
+            IMG_Home_Game=IMG_Home_Game.subsample(18,18)
+            L_IMG_Home_Game.config(image=IMG_Home_Game)
+            IMG_Away_Game=tk.PhotoImage(file=Base_Path/Game_Player[s4.get()][i[1]]['logo'])
+            IMG_Away_Game=IMG_Away_Game.subsample(18,18)
+            L_IMG_Away_Game.config(image=IMG_Away_Game)
             match=mtc.Match_Engine(home,away)
 def start_match():
     Start_Game_Btn.place_forget()
+    Tactics_Match_Btn.place_forget()
+    Back_Match_to_Menu_Btn.place_forget()
+    Pause_Match_Btn.place_forget()
+    Continue_Match_Btn.place_forget()
     if match.pause==True:
         match.pause=False
         match.minute=46
     update_match()
 
+def pause_match():
+    global Match_After
+    if Match_After!=None:
+        Match_Frame.after_cancel(Match_After)
+        Match_After=None
+        match.pause=True
+        L_Result_Match.config(text='Game Paused')
+        Pause_Match_Btn.place_forget()
+        Continue_Match_Btn.place(x=700,y=760)
+        Tactics_Match_Btn.place(x=450,y=760)
+
+def continue_match():
+    global Match_After
+    if Match_After==None:
+        match.pause=False
+        update_match()
+        Continue_Match_Btn.place_forget()        
+        Tactics_Match_Btn.place_forget()
+        Pause_Match_Btn.place(x=700,y=760)
+
 def update_match():
-    global match
+    global match,Match_After
+    if match.pause:
+        return
     event=match.game_engine()
     L_Home_Goal.config(text=match.home_goal)
     L_Away_Goal.config(text=match.away_goal)
     if event=='half time':
         L_Result_Match.config(text='half time')
-        Start_Game_Btn.place(x=700,y=700)
+        Start_Game_Btn.place(x=700,y=760)
+        Tactics_Match_Btn.place(x=450,y=760)
+        Pause_Match_Btn.place_forget()
+        Continue_Match_Btn.place_forget()
         return
     elif event=='full time':
         L_Result_Match.config(text='full time')
+        Continue_Match_to_Menu.place(x=700,y=760)
         return
     else:
         L_Result_Match.config(text=f'{match.minute} {event}')
-    Match_Frame.after(1000,update_match)
+        Pause_Match_Btn.place(x=700,y=760)
+    Match_After=Match_Frame.after(1000,update_match)
+
+def end_game():
+    main_menu()
 
 L_Welcome_Start=tk.Label(Start_Frame,text='Welcome to the Couch Simulator'+'\n'+'Please Click the Button',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Welcome_Start.place(x=530,y=150)
@@ -1034,6 +1086,7 @@ Create_Couch_Btn.place(x=760,y=360)
 Back_Create_Couch_Btn.place(x=650,y=360)
 L_Report_Age.place(x=670,y=150)
 L_Choose_Team=tk.Label(Select_Team_Frame,text='Choose your Team',font=('arial',24),bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Place_Couch_Team=tk.Label(Select_Team_Frame,bg=MENU_BG)
 L_Couch_Team=tk.Label(Select_Team_Frame,font=SUBTITLE_FONT,text='Barcelona',bg=MENU_BG,fg=MENU_ITEM_FG)
 Next_Selected_Team=tk.Button(Select_Team_Frame,text='>',font=BUTTON_FONT,command=next_team,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Back_Selected_Team=tk.Button(Select_Team_Frame,text='<',font=BUTTON_FONT,command=previous_team,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
@@ -1042,6 +1095,7 @@ Combo_Select_Coutry=ttk.Combobox(Select_Team_Frame,font=COMBO_FONT,textvariable=
 Combo_Select_Coutry.set('Spain')
 Save_Team_Btn=tk.Button(Select_Team_Frame,text='Save',font=BUTTON_FONT,command=confirm,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_Choose_Team.place(x=620,y=50)
+L_Place_Couch_Team.place(x=600,y=330)
 L_Couch_Team.place(x=700,y=350)
 Next_Selected_Team.place(x=1050,y=350)
 Back_Selected_Team.place(x=450,y=350)
@@ -1295,26 +1349,28 @@ L_Calendar_Comming_Soon.place(x=650,y=360)
 Calendar_Back_Btn=tk.Button(Calendar_Frame,text='back',font=TEXT_FONT,command=main_menu,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Calendar_Back_Btn.place(x=1330,y=750)
 L_Result_Match=tk.Label(Match_Frame,font=('arial',30),bg=MENU_BG,fg=MENU_ITEM_FG)
-L_Result_Match.place(x=680,y=400)
+L_Result_Match.place(x=660,y=400)
 Start_Game_Btn=tk.Button(Match_Frame,text='Start',font=TEXT_FONT,command=start_match,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
-Start_Game_Btn.place(x=700,y=700)
+Start_Game_Btn.place(x=700,y=760)
+Tactics_Match_Btn=tk.Button(Match_Frame,text='Tactics',font=TEXT_FONT,command=tactic_team,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
+Tactics_Match_Btn.place(x=450,y=760)
+Back_Match_to_Menu_Btn=tk.Button(Match_Frame,text='Back',bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,font=TEXT_FONT,command=main_menu)
+Back_Match_to_Menu_Btn.place(x=200,y=760)
+Pause_Match_Btn=tk.Button(Match_Frame,text='Pause',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=pause_match)
+Continue_Match_Btn=tk.Button(Match_Frame,text='Continue',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=continue_match)
+Continue_Match_to_Menu=tk.Button(Match_Frame,text='Continue',font=TEXT_FONT,fg=MENU_ITEM_FG,command=end_game)
 L_Home_Game=tk.Label(Match_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
-IMG_Home_Game=tk.PhotoImage()
-IMG_Home_Game=IMG_Home_Game.subsample(17,17)
-L_IMG_Home_Game=tk.Label(Match_Frame,bg=MENU_BG,image=IMG_Home_Game)
+L_IMG_Home_Game=tk.Label(Match_Frame,bg=MENU_BG)
 L_Away_Game=tk.Label(Match_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
-IMG_Away_Game=tk.PhotoImage()
-IMG_Away_Game=IMG_Away_Game.subsample(17,17)
-L_IMG_Away_Game=tk.Label(Match_Frame,bg=MENU_BG,image=IMG_Away_Game)
+L_IMG_Away_Game=tk.Label(Match_Frame,bg=MENU_BG)
 L_VS_Game=tk.Label(Match_Frame,text='VS',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Home_Goal=tk.Label(Match_Frame,text='0',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Away_Goal=tk.Label(Match_Frame,text='0',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
-Back_Match_to_Menu_Btn=tk.Button(Match_Frame)
-L_Home_Game.place(x=200,y=50)
-L_IMG_Home_Game.place(x=100,y=50)
+L_Home_Game.place(x=200,y=55)
+L_IMG_Home_Game.place(x=100,y=30)
 L_VS_Game.place(x=710,y=50)
-L_Away_Game.place(x=1200,y=50)
-L_IMG_Away_Game.place(x=1300,y=50)
+L_Away_Game.place(x=1100,y=55)
+L_IMG_Away_Game.place(x=1350,y=30)
 L_Home_Goal.place(x=510,y=50)
 L_Away_Goal.place(x=910,y=50)
 

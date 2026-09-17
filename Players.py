@@ -1361,7 +1361,7 @@ players = {
         "Bayer Leverkusen": {
             "formation": "3-5-1",
             "budget": 130000000,
-            "logo":"Assets/logo/Germany/Bayer Leverkisen.png",
+            "logo":"Assets/logo/Germany/Bayer Leverkusen.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -3255,39 +3255,37 @@ players = {
     },
     "Brazil":{
         "Flamengo": {
-            "Flamengo": {
-                "formation": "4-3-2-1",
-                "budget": 35000000,
-                "logo":"Assets/logo/Brazil/Flamengo.png",
-                "tactics": {
-                    "mentality": "Attacking",
-                    "pressing": "High",
-                    "defensive_line": "Normal",
-                    "build_up": "Balanced",
-                    "width": "Wide",
-                    "chance_creation": "Crosses",
-                    "tempo": "Fast",
-                    "time_wasting": "Rarely",
-                    "counter_attack": "On",
-                    "offside_trap": "Off",
-                    "defensive_style": "Balance",
-                    "attacking_focus": "Mixed",
-                    "creative_freedom": "Creative"
-                },
-                "roles": {
-                    "captain": "Danilo",
-                    "penalty_taker": "Pedro",
-                    "short_free_kick_taker": "De Arrascaeta",
-                    "long_free_kick_taker": "De Arrascaeta",
-                    "left_corner": "De Arrascaeta",
-                    "right_corner": "De Arrascaeta",
-                    "long_throw": "Alex Sandro",
-                    "target_man": "Pedro",
-                    "playmaker": "De Arrascaeta",
-                    "pressing_leader": "Gerson",
-                    "fast_break_runner": "Luiz Araujo",
-                    "ball_winner": "Erick Pulgar"
-                }
+            "formation": "4-3-2-1",
+            "budget": 35000000,
+            "logo":"Assets/logo/Brazil/Flamengo.png",
+            "tactics": {
+                "mentality": "Attacking",
+                "pressing": "High",
+                "defensive_line": "Normal",
+                "build_up": "Balanced",
+                "width": "Wide",
+                "chance_creation": "Crosses",
+                "tempo": "Fast",
+                "time_wasting": "Rarely",
+                "counter_attack": "On",
+                "offside_trap": "Off",
+                "defensive_style": "Balance",
+                "attacking_focus": "Mixed",
+                "creative_freedom": "Creative"
+            },
+            "roles": {
+                "captain": "Danilo",
+                "penalty_taker": "Pedro",
+                "short_free_kick_taker": "De Arrascaeta",
+                "long_free_kick_taker": "De Arrascaeta",
+                "left_corner": "De Arrascaeta",
+                "right_corner": "De Arrascaeta",
+                "long_throw": "Alex Sandro",
+                "target_man": "Pedro",
+                "playmaker": "De Arrascaeta",
+                "pressing_leader": "Gerson",
+                "fast_break_runner": "Luiz Araujo",
+                "ball_winner": "Erick Pulgar"
             },
             "starting": [
                 {"name":"Agustin Rossi","position":"GK","overall":83,"age":30,"value":18000000,"salary":90000,"diving":84,"handling":82,"kicking":80,"reflexes":85,"speed":45,"positioning":83,"fitness":100,"morale":80,"sharpness":100},
@@ -4559,7 +4557,7 @@ players = {
         "Persepolis": {
             "formation": "4-3-3",
             "budget": 12000000,
-            "logo":"Assets/logo/Iran/Pesepolis.png",
+            "logo":"Assets/logo/Iran/Persepolis.png",
             "tactics": {
                 "mentality": "Attacking",
                 "pressing": "High",
@@ -5045,7 +5043,7 @@ players = {
         "Shahr Khodro": {
             "formation": "4-3-3",
             "budget": 4500000,
-            "logo":"Assets/logo/Iran/Shahr Khodro.png",
+            "logo":"Assets/logo/Iran/Shahr Khodro.webp",
             "tactics": {
                 "mentality": "Defensive",
                 "pressing": "Low",
