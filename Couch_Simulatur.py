@@ -50,6 +50,7 @@ Statistics_Goal_Frame=tk.Frame(Game,bg=MENU_BG)
 Calendar_Frame=tk.Frame(Game,bg=MENU_BG)
 Match_Frame=tk.Frame(Game,bg=MENU_BG)
 Match_Separator_Frame=tk.Frame(Match_Frame,bg='white',width=3)
+Match_Starting_Separator_Frame=tk.Frame(Match_Frame,bg='white')
 
 s1=tk.StringVar()
 s2=tk.StringVar()
@@ -139,6 +140,7 @@ tp7=['GK','CB','CB','CB','RM','CM','CDM','CM','LM','ST','ST']
 tx8=[600,1000,450,750,150,400,600,800,500,700,600]
 ty8=[600,450,500,500,450,325,325,325,200,200,50]
 tp8=['GK','RB','CB','CB','LB','CM','CM','CM','CAM','CAM','ST']
+Tactics_Positions={'4-3-3':tp1,'4-4-2':tp2,'5-3-2':tp3,'4-2-4':tp4,'4-5-1':tp5,'4-1-2-1-2':tp6,'3-5-2':tp7,'4-3-2-1':tp8}
 tbx=50
 tby=700
 Combo_Captain=[]
@@ -162,6 +164,7 @@ Training_Exit_Status=False
 IMG_Team_Logo=None
 L_Place_Logo=None
 Match_After=None
+Previous_Tactic_Frame=None
 
 def toggle_fullscreen(event=None):
     global Fullscreen
@@ -407,18 +410,38 @@ def back_player():
     else:
         bench_team_squad()
 
+def previous_tactic_frame():
+    global Previous_Tactic_Frame
+    if Previous_Tactic_Frame=='menu':
+        main_menu()
+    elif Previous_Tactic_Frame=='match':
+        back_tactic_team_match()
+
 def training_frame():
     Menu_Frame.place_forget()
     GK_Training_Type_Frame.place_forget()
     Training_Type_Frame.place_forget()
     Training_Select_Player_Frame.place(x=0,y=0,width=1920,height=1080)
 
-def tactic_team():
+def menu_tactic_team():
+    global Previous_Tactic_Frame
     Menu_Frame.place_forget()
+    Tactic_Team_Frame1.place(x=0,y=0,width=1920,height=1080)
+    players_formation(Currect_Formation)
+    L_Overall_Team.config(text=f'Overall: {show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)}')
+    Previous_Tactic_Frame='menu'
+
+def match_tactic_team():
+    global Previous_Tactic_Frame
     Match_Frame.place_forget()
     Tactic_Team_Frame1.place(x=0,y=0,width=1920,height=1080)
     players_formation(Currect_Formation)
     L_Overall_Team.config(text=f'Overall: {show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)}')
+    Previous_Tactic_Frame='match'
+
+def back_tactic_team_match():
+    Tactic_Team_Frame1.place_forget()
+    Match_Frame.place(x=0,y=0,width=1920,height=1080)
 
 def players_formation(formation):
     global Player_Starting_Place,Currect_Formation
@@ -435,7 +458,7 @@ def players_formation(formation):
             else:
                 Player_Starting_Place.config(bg=Wrong_Place,padx=15,pady=10,text=f'{Game_Player[s4.get()][Team]['starting'][i]['name']}\n {Game_Player[s4.get()][Team]['starting'][i]['overall']} \n {Game_Player[s4.get()][Team]['starting'][i]['position']} => {tp1[i]}')
             Player_Starting_Place_List.append(Player_Starting_Place)
-            show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)
+            L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
     if formation=='4-4-2':
         for i in range(11):
             Player_Starting_Place=tk.Button(Tactic_Team_Frame1,command=lambda i=i: select_starting(i))
@@ -445,7 +468,7 @@ def players_formation(formation):
             else:
                 Player_Starting_Place.config(bg=Wrong_Place,padx=15,pady=10,text=f'{Game_Player[s4.get()][Team]['starting'][i]['name']} \n {Game_Player[s4.get()][Team]['starting'][i]['overall']} \n {Game_Player[s4.get()][Team]['starting'][i]['position']} => {tp2[i]}')
             Player_Starting_Place_List.append(Player_Starting_Place)
-            show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)
+            L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
     if formation=='5-3-2':
         for i in range(11):
             Player_Starting_Place=tk.Button(Tactic_Team_Frame1,command=lambda i=i: select_starting(i))
@@ -455,7 +478,7 @@ def players_formation(formation):
             else:
                 Player_Starting_Place.config(bg=Wrong_Place,padx=15,pady=10,text=f'{Game_Player[s4.get()][Team]['starting'][i]['name']} \n {Game_Player[s4.get()][Team]['starting'][i]['overall']} \n {Game_Player[s4.get()][Team]['starting'][i]['position']} => {tp3[i]}')
             Player_Starting_Place_List.append(Player_Starting_Place)
-            show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)
+            L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
     if formation=='4-2-4':
         for i in range(11):
             Player_Starting_Place=tk.Button(Tactic_Team_Frame1,command=lambda i=i: select_starting(i))
@@ -465,7 +488,7 @@ def players_formation(formation):
             else:
                 Player_Starting_Place.config(bg=Wrong_Place,padx=15,pady=10,text=f'{Game_Player[s4.get()][Team]['starting'][i]['name']} \n {Game_Player[s4.get()][Team]['starting'][i]['overall']} \n {Game_Player[s4.get()][Team]['starting'][i]['position']} => {tp4[i]}')
             Player_Starting_Place_List.append(Player_Starting_Place)
-            show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)
+            L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
     if formation=='4-5-1':
         for i in range(11):
             Player_Starting_Place=tk.Button(Tactic_Team_Frame1,command=lambda i=i: select_starting(i))
@@ -475,7 +498,7 @@ def players_formation(formation):
             else:
                 Player_Starting_Place.config(bg=Wrong_Place,padx=15,pady=10,text=f'{Game_Player[s4.get()][Team]['starting'][i]['name']} \n {Game_Player[s4.get()][Team]['starting'][i]['overall']} \n {Game_Player[s4.get()][Team]['starting'][i]['position']} => {tp5[i]}')
             Player_Starting_Place_List.append(Player_Starting_Place)
-            show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)
+            L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
     if formation=='4-1-2-1-2':
         for i in range(11):
             Player_Starting_Place=tk.Button(Tactic_Team_Frame1,command=lambda i=i: select_starting(i))
@@ -485,7 +508,7 @@ def players_formation(formation):
             else:
                 Player_Starting_Place.config(bg=Wrong_Place,padx=15,pady=10,text=f'{Game_Player[s4.get()][Team]['starting'][i]['name']} \n {Game_Player[s4.get()][Team]['starting'][i]['overall']} \n {Game_Player[s4.get()][Team]['starting'][i]['position']} => {tp6[i]}')
             Player_Starting_Place_List.append(Player_Starting_Place)
-            show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)
+            L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
     if formation=='3-5-2':
         for i in range(11):
             Player_Starting_Place=tk.Button(Tactic_Team_Frame1,command=lambda i=i: select_starting(i))
@@ -495,7 +518,7 @@ def players_formation(formation):
             else:
                 Player_Starting_Place.config(bg=Wrong_Place,padx=15,pady=10,text=f'{Game_Player[s4.get()][Team]['starting'][i]['name']} \n {Game_Player[s4.get()][Team]['starting'][i]['overall']} \n {Game_Player[s4.get()][Team]['starting'][i]['position']} => {tp7[i]}')
             Player_Starting_Place_List.append(Player_Starting_Place)
-            show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)
+            L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
     if formation=='4-3-2-1':
         for i in range(11):
             Player_Starting_Place=tk.Button(Tactic_Team_Frame1,command=lambda i=i: select_starting(i))
@@ -505,7 +528,7 @@ def players_formation(formation):
             else:
                 Player_Starting_Place.config(bg=Wrong_Place,padx=15,pady=10,text=f'{Game_Player[s4.get()][Team]['starting'][i]['name']} \n {Game_Player[s4.get()][Team]['starting'][i]['overall']} \n {Game_Player[s4.get()][Team]['starting'][i]['position']} => {tp8[i]}')
             Player_Starting_Place_List.append(Player_Starting_Place)
-            show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)
+            L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
     show_bench()
 
 def show_bench():
@@ -962,18 +985,21 @@ def swap_starting(first,second):
     Game_Player[s4.get()][Team]['starting'][first], Game_Player[s4.get()][Team]['starting'][second] = Game_Player[s4.get()][Team]['starting'][second], Game_Player[s4.get()][Team]['starting'][first]
     Selected = None
     players_formation(Currect_Formation)
+    L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
 
 def swap_bench(first,second):
     global Selected
     Game_Player[s4.get()][Team]['bench'][first], Game_Player[s4.get()][Team]['bench'][second] = Game_Player[s4.get()][Team]['bench'][second], Game_Player[s4.get()][Team]['bench'][first]
     Selected = None
     players_formation(Currect_Formation)
+    L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
 
 def swap_player(starting,bench):
     global Selected
     Game_Player[s4.get()][Team]['starting'][starting], Game_Player[s4.get()][Team]['bench'][bench] = Game_Player[s4.get()][Team]['bench'][bench], Game_Player[s4.get()][Team]['starting'][starting]
     Selected = None
     players_formation(Currect_Formation)
+    L_Overall_Team.config(text='Overall: '+str(show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)))
 
 def statistics_goal():
     Menu_Frame.place_forget()
@@ -988,8 +1014,13 @@ def play_match():
     Menu_Frame.place_forget()
     Match_Frame.place(x=0,y=0,width=1920,height=1080)
     Match_Separator_Frame.place(x=100,y=150,width=1350)
+    Match_Starting_Separator_Frame.place(x=730,y=195,height=520)
     for i in Game_Calendar[Currect_Day]:
         if Team in i:
+            Home_Number=0
+            Away_Number=0
+            Starting_Home=''
+            Starting_Away=''
             home=i[0]
             away=i[1]
             L_Home_Game.config(text=i[0])
@@ -1001,12 +1032,26 @@ def play_match():
             IMG_Away_Game=IMG_Away_Game.subsample(18,18)
             L_IMG_Away_Game.config(image=IMG_Away_Game)
             match=mtc.Match_Engine(home,away,Game_Player[s4.get()][home],Game_Player[s4.get()][away])
+            Home_Player=Game_Player[s4.get()][home]['starting']
+            Away_Player=Game_Player[s4.get()][away]['starting']
+            for player in Home_Player:
+                Starting_Home=Starting_Home+f'{Tactics_Positions[Game_Player[s4.get()][home]['formation']][Home_Number]} - {player['name']}\n'
+                Home_Number+=1
+            for player in Away_Player:
+                Starting_Away=Starting_Away+f'{Tactics_Positions[Game_Player[s4.get()][away]['formation']][Away_Number]} - {player['name']}\n'
+                Away_Number+=1
+            L_Starting_Players_Home.config(text=f'{Starting_Home}')
+            L_Starting_Players_Away.config(text=f'{Starting_Away}')
+
 def start_match():
     Start_Game_Btn.place_forget()
     Tactics_Match_Btn.place_forget()
     Back_Match_to_Menu_Btn.place_forget()
     Pause_Match_Btn.place_forget()
     Continue_Match_Btn.place_forget()
+    L_Starting_Players_Home.place_forget()
+    L_Starting_Players_Away.place_forget()
+    Match_Starting_Separator_Frame.place_forget()
     if match.pause==True:
         match.pause=False
         match.minute=46
@@ -1105,17 +1150,17 @@ Save_Team_Btn.place(x=720,y=450)
 L_Loading=tk.Label(Loading_Frame,font=('bahnschrift',72),bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Loading.place(x=580,y=300)
 L_Team_Name=tk.Label(Header_Menu_Frame,font=BUTTON_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
-L_Team_Overall=tk.Label(Header_Menu_Frame,font=BUTTON_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_Team_Budget=tk.Label(Header_Menu_Frame,font=BUTTON_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
+L_Team_Overall=tk.Label(Header_Menu_Frame,font=BUTTON_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_Team_Position=tk.Label(Header_Menu_Frame,font=BUTTON_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_Team_Name.place(x=130,y=20)
 L_Team_Budget.place(x=350,y=20)
-L_Team_Overall.place(x=500,y=20)
+L_Team_Overall.place(x=700,y=20)
 L_Team_Position.place(x=1000,y=20)
 Squad_Menu_Btn=tk.Button(Menu_Frame,text='Squad',font=BUTTON_FONT,command=starting_team_squad,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Transfer_Market_Menu_Btn=tk.Button(Menu_Frame,text='Transfer Market',font=BUTTON_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Training_Menu_Btn=tk.Button(Menu_Frame,text='Training',font=BUTTON_FONT,command=training_frame,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
-Tactics_Menu_Btn=tk.Button(Menu_Frame,text='Tactics',font=BUTTON_FONT,command=tactic_team,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
+Tactics_Menu_Btn=tk.Button(Menu_Frame,text='Tactics',font=BUTTON_FONT,command=menu_tactic_team,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Calendar_Menu_Btn=tk.Button(Menu_Frame,text='Calendar',font=BUTTON_FONT,command=calendar,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Statistics_Menu_Btn=tk.Button(Menu_Frame,text='Statistics',font=BUTTON_FONT,command=statistics_goal,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Next_Day_Match_Menu_Btn=tk.Button(Menu_Frame,text='Next Day',font=BUTTON_FONT,command=play_match,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
@@ -1230,7 +1275,7 @@ L_Overall_Team=tk.Label(Tactic_Team_Frame1,font=TEXT_FONT,bg="#00CE1F")
 L_Overall_Team.place(x=0,y=0)
 Tactics_Frame2_Btn=tk.Button(Tactic_Team_Frame1,text='Tactics',font=BUTTON_FONT,command=tactic_frame)
 Tactics_Frame2_Btn.place(x=1200,y=670,width=300)
-Back_Menu_Tactic_Frame1=tk.Button(Tactic_Team_Frame1,text='Back',font=TEXT_FONT,command=main_menu)
+Back_Menu_Tactic_Frame1=tk.Button(Tactic_Team_Frame1,text='Back',font=TEXT_FONT,command=previous_tactic_frame)
 Back_Menu_Tactic_Frame1.place(x=1200,y=750,width=300)
 L_Team_Instruction_Sub=tk.Label(Tactic_Team_Frame2,text='Team Instruction',font=SUBTITLE_FONT,bg="#00CE1F")
 L_Team_Instruction_Sub.place(x=10,y=0)
@@ -1352,7 +1397,7 @@ L_Result_Match=tk.Label(Match_Frame,font=('arial',30),bg=MENU_BG,fg=MENU_ITEM_FG
 L_Result_Match.place(x=660,y=400)
 Start_Game_Btn=tk.Button(Match_Frame,text='Start',font=TEXT_FONT,command=start_match,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Start_Game_Btn.place(x=700,y=760)
-Tactics_Match_Btn=tk.Button(Match_Frame,text='Tactics',font=TEXT_FONT,command=tactic_team,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
+Tactics_Match_Btn=tk.Button(Match_Frame,text='Tactics',font=TEXT_FONT,command=match_tactic_team,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 Tactics_Match_Btn.place(x=450,y=760)
 Back_Match_to_Menu_Btn=tk.Button(Match_Frame,text='Back',bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,font=TEXT_FONT,command=main_menu)
 Back_Match_to_Menu_Btn.place(x=200,y=760)
@@ -1366,6 +1411,8 @@ L_IMG_Away_Game=tk.Label(Match_Frame,bg=MENU_BG)
 L_VS_Game=tk.Label(Match_Frame,text='VS',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Home_Goal=tk.Label(Match_Frame,text='0',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
 L_Away_Goal=tk.Label(Match_Frame,text='0',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+L_Starting_Players_Home=tk.Label(Match_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG,justify='left')
+L_Starting_Players_Away=tk.Label(Match_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG,justify='left')
 L_Home_Game.place(x=200,y=55)
 L_IMG_Home_Game.place(x=100,y=30)
 L_VS_Game.place(x=710,y=50)
@@ -1373,6 +1420,8 @@ L_Away_Game.place(x=1100,y=55)
 L_IMG_Away_Game.place(x=1350,y=30)
 L_Home_Goal.place(x=510,y=50)
 L_Away_Goal.place(x=910,y=50)
+L_Starting_Players_Home.place(x=250,y=250)
+L_Starting_Players_Away.place(x=1050,y=250)
 
 for i in range(12):
     row=[]
