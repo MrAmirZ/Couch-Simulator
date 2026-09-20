@@ -20,6 +20,10 @@ SUBTITLE_FONT=('bahnschrift',22)
 TEXT_FONT=('bahnschrift',18)
 BUTTON_FONT=('bahnschrift',16)
 COMBO_FONT=('bahnschrift',12)
+SUBTITLE_FONT_BOLD=('bahnschrift',22,'bold')
+TEXT_FONT_BOLD=('bahnschrift',18,'bold')
+BUTTON_FONT_BOLD=('bahnschrift',16,'bold')
+COMBO_FONT_BOLD=('bahnschrift',12,'bold')
 
 MENU_BG = "#2a2b2c"
 HEADER_MENU_BG="#454648"
@@ -32,7 +36,7 @@ Select_couch_Frame=tk.Frame(Game,bg=MENU_BG)
 Select_Team_Frame=tk.Frame(Game,bg=MENU_BG)
 Loading_Frame=tk.Frame(Game,bg=MENU_BG)
 Header_Menu_Frame=tk.Frame(Game,bg=HEADER_MENU_BG)
-Menu_Separator_Frame=tk.Frame(Game,bg='white',width=1)
+Menu_Separator_Frame=tk.Frame(Game,bg='#f6d30d',width=1)
 Menu_Frame=tk.Frame(Game,bg=MENU_BG)
 Squad_Frame1=tk.Frame(Game,bg=MENU_BG)
 Squad_Frame2=tk.Frame(Game,bg=MENU_BG)
@@ -44,6 +48,9 @@ Training_Mode_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Result_Frame=tk.Frame(Game,bg=MENU_BG)
 Training_Result_Separator_Frame=tk.Frame(Training_Result_Frame,bg='white',width=3)
 Tactic_Team_Frame1=tk.Frame(Game,bg="#00CE1F")
+Tactic_Team_Header_Frame1=tk.Frame(Tactic_Team_Frame1,bg="#0C7F1D")
+Tactic_Frame1_Separator=tk.Frame(Tactic_Team_Frame1,bg='#f6d30d',width=5)
+Tactic_Positions_Frame=tk.Frame(Tactic_Team_Frame1,bg="#1c1c1c")
 Tactic_Team_Frame2=tk.Frame(Game,bg="#00CE1F")
 Tactic_Separator_Frame=tk.Frame(Tactic_Team_Frame2,bg="#3f3f46")
 Statistics_Goal_Frame=tk.Frame(Game,bg=MENU_BG)
@@ -97,7 +104,7 @@ x2=1200
 x_x_x=100
 x_x=50
 x=20
-y2=30
+y2=40
 y_y_y=130
 y_y=85
 y=20
@@ -116,31 +123,34 @@ Player_Starting_Place_List=[]
 Player_Bench_Place_List=[]
 Currect_Place="#00a20d"
 Wrong_Place="#ff0000"
-tx1=[600,1000,400,800,150,350,600,850,1000,150,600]
-ty1=[600,450,500,500,450,250,300,250,100,100,50]
+tx1=[530,950,350,750,120,300,530,800,950,120,530]
+ty1=[600,450,500,500,450,250,320,250,130,130,80]
 tp1=['GK','RB','CB','CB','LB','CM','CDM','CM','RW','LW','ST']
-tx2=[600,1000,400,800,150,1000,450,750,150,450,750]
-ty2=[600,450,500,500,450,200,250,250,200,50,50]
+tx2=[530,950,380,680,100,950,380,680,100,380,680]
+ty2=[600,450,500,500,450,220,270,270,220,80,80]
 tp2=['GK','RB','CB','CB','LB','RM','CM','CM','LM','ST','ST']
-tx3=[600,1000,350,600,850,150,350,600,850,450,750]
-ty3=[600,450,500,500,500,450,250,300,250,50,50]
+tx3=[530,950,280,530,780,100,280,530,780,380,680]
+ty3=[600,450,500,500,500,450,250,300,250,80,80]
 tp3=['GK','RB','CB','CB','CB','LB','CM','CDM','CM','ST','ST']
-tx4=[600,1000,400,800,150,450,750,1000,450,750,150]
-ty4=[600,450,500,500,450,250,250,100,50,50,100]
+tx4=[530,950,380,680,100,380,680,950,380,680,100]
+ty4=[600,450,500,500,450,250,250,130,80,80,130]
 tp4=['GK','RB','CB','CB','LB','CM','CM','RW','ST','ST','LW']
-tx5=[600,1000,400,800,150,1000,450,600,750,150,600]
+tx5=[530,950,380,680,100,950,380,530,680,100,530]
 ty5=[600,450,500,500,450,200,250,300,250,200,100]
 tp5=['GK','RB','CB','CB','LB','RM','CM','CDM','CM','LM','ST']
-tx6=[600,1000,400,800,150,600,400,800,600,450,750]
+tx6=[530,950,380,680,100,530,400,700,530,380,680]
 ty6=[600,450,500,500,450,350,250,250,200,100,100]
 tp6=['GK','RB','CB','CB','LB','CDM','CM','CM','CAM','ST','ST']
-tx7=[600,400,600,800,1000,450,600,750,150,450,750]
+tx7=[530,380,530,680,950,380,530,680,100,380,680]
 ty7=[600,450,450,450,200,250,300,250,200,100,100]
 tp7=['GK','CB','CB','CB','RM','CM','CDM','CM','LM','ST','ST']
-tx8=[600,1000,450,750,150,400,600,800,500,700,600]
-ty8=[600,450,500,500,450,325,325,325,200,200,50]
+tx8=[530,950,380,680,100,380,530,680,430,630,530]
+ty8=[600,450,500,500,450,325,325,325,200,200,80]
 tp8=['GK','RB','CB','CB','LB','CM','CM','CM','CAM','CAM','ST']
 Tactics_Positions={'4-3-3':tp1,'4-4-2':tp2,'5-3-2':tp3,'4-2-4':tp4,'4-5-1':tp5,'4-1-2-1-2':tp6,'3-5-2':tp7,'4-3-2-1':tp8}
+Forwards=['LW','RW','ST']
+Midfielders=['CM','CDM','CAM','LM','RM']
+Defenders=['LB','RB','CB']
 tbx=50
 tby=700
 Combo_Captain=[]
@@ -165,6 +175,7 @@ IMG_Team_Logo=None
 L_Place_Logo=None
 Match_After=None
 Previous_Tactic_Frame=None
+Training_Day=True
 
 def toggle_fullscreen(event=None):
     global Fullscreen
@@ -418,6 +429,11 @@ def previous_tactic_frame():
         back_tactic_team_match()
 
 def training_frame():
+    global Training_Day
+    if Training_Day is False:
+        Training_Menu_Btn.config(fg="#e80303",font=BUTTON_FONT_BOLD)
+        Menu_Frame.after(3000,lambda : Training_Menu_Btn.config(fg='white',font=BUTTON_FONT))
+        return
     Menu_Frame.place_forget()
     GK_Training_Type_Frame.place_forget()
     Training_Type_Frame.place_forget()
@@ -427,6 +443,9 @@ def menu_tactic_team():
     global Previous_Tactic_Frame
     Menu_Frame.place_forget()
     Tactic_Team_Frame1.place(x=0,y=0,width=1920,height=1080)
+    Tactic_Team_Header_Frame1.place(x=0,y=0,width=1150,height=70)
+    Tactic_Frame1_Separator.place(x=1145,y=0,relheight=1)
+    Tactic_Positions_Frame.place(x=1150,y=0,width=770,height=1080)
     players_formation(Currect_Formation)
     L_Overall_Team.config(text=f'Overall: {show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)}')
     Previous_Tactic_Frame='menu'
@@ -435,6 +454,9 @@ def match_tactic_team():
     global Previous_Tactic_Frame
     Match_Frame.place_forget()
     Tactic_Team_Frame1.place(x=0,y=0,width=1920,height=1080)
+    Tactic_Team_Header_Frame1.place(x=0,y=0,width=1150,height=70)
+    Tactic_Frame1_Separator.place(x=1145,y=0,relheight=1,)
+    Tactic_Positions_Frame.place(x=1150,y=0,width=770,height=1080)
     players_formation(Currect_Formation)
     L_Overall_Team.config(text=f'Overall: {show_overall_team(Game_Player[s4.get()][Team]['starting'],Currect_Formation)}')
     Previous_Tactic_Frame='match'
@@ -647,7 +669,6 @@ def result_training():
     L_Report_Fitness.config(text=f'Fitness\n\n{Training.average_fitness()}  {Training.defrencce_fitness()}')
     L_Report_Sharpness.config(text=f'Sharpness\n\n{Training.average_sharpness()}  {Training.defrenccd_sharpness()}')
     L_Report_Moral.config(text=f'Moral\n\n{Training.average_moral()}  {Training.defrencce_moral()}')
-    
 
 def training_progress(value=0):
     if value<=100:
@@ -674,7 +695,7 @@ def training_progress(value=0):
         Continue_Result_Training.place(x=660,y=770)
 
 def training_improvment():
-    global Training_Exit_Status,Training_Type,Training_Mode,Training_Players
+    global Training_Exit_Status,Training_Type,Training_Mode,Training_Players,Training_Day
     if Training_Exit_Status==False:
         L_Name_Player1_Improvments.place_forget()
         L_Name_Player2_Improvments.place_forget()
@@ -724,6 +745,7 @@ def training_improvment():
         Training_Players=[]
         Training_Type=[]
         Training_Mode=''
+        Training_Day=False
         main_menu()
 
 def show_overall_team(starting_players,formation):
@@ -1101,6 +1123,8 @@ def update_match():
     Match_After=Match_Frame.after(1000,update_match)
 
 def end_game():
+    global Training_Day
+    Training_Day=True
     main_menu()
 
 L_Welcome_Start=tk.Label(Start_Frame,text='Welcome to the Couch Simulator'+'\n'+'Please Click the Button',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
@@ -1140,8 +1164,8 @@ Combo_Select_Coutry=ttk.Combobox(Select_Team_Frame,font=COMBO_FONT,textvariable=
 Combo_Select_Coutry.set('Spain')
 Save_Team_Btn=tk.Button(Select_Team_Frame,text='Save',font=BUTTON_FONT,command=confirm,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_Choose_Team.place(x=620,y=50)
-L_Place_Couch_Team.place(x=600,y=330)
-L_Couch_Team.place(x=700,y=350)
+L_Place_Couch_Team.place(x=620,y=325)
+L_Couch_Team.place(x=720,y=350)
 Next_Selected_Team.place(x=1050,y=350)
 Back_Selected_Team.place(x=450,y=350)
 L_Select_Team.place(x=550,y=150)
@@ -1180,8 +1204,8 @@ Kicking_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Kicking \n\n+ Kickin
 Reflexes_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Reflexes \n\n+ Reflexes',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_gk_train('reflexes'))
 Speed_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Speed \n\n+ Speed',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_gk_train('speed'))
 Positioning_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Positioning \n\n+ Positioning',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,command=lambda :choosing_gk_train('positioning'))
-Goalkeeper_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Goalkeeper \n\n+ Diving\n\n+ Kicking\n\n+ Positioning',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_gk_train('goalkeeper'))
-Sweeperkeeper_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Sweeperkeeper \n\n+ Reflexes\n\n+ Speed\n\n+ Handling',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_gk_train('sweeperkeeper'))
+Goalkeeper_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Goalkeeper \n\n+ Diving\n+ Kicking\n+ Positioning',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_gk_train('goalkeeper'))
+Sweeperkeeper_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Sweeperkeeper \n\n+ Reflexes\n+ Speed\n+ Handling',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_gk_train('sweeperkeeper'))
 Balance_GK_Training_Btn=tk.Button(GK_Training_Type_Frame,text='Balance \n\n+ All',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,width=15,height=6,command=lambda :choosing_gk_train('balance'))
 Back_GK_Frame_Players_Selection=tk.Button(GK_Training_Type_Frame,text='Back',font=TEXT_FONT,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG,command=training_frame)
 L_Choose_Training_Type_Players=tk.Label(Training_Type_Frame,text='Choose Training Type',font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
@@ -1271,12 +1295,12 @@ L_PlayerInfo=tk.Label(Player_Frame,font=SUBTITLE_FONT,bg=MENU_BG,fg=MENU_ITEM_FG
 Back_Player_Btn=tk.Button(Player_Frame,text='Back',font=TEXT_FONT,command=back_player,bg=HEADER_MENU_BG,fg=MENU_ITEM_FG)
 L_PlayerInfo.place(x=650,y=20)
 Back_Player_Btn.place(x=100,y=720)
-L_Overall_Team=tk.Label(Tactic_Team_Frame1,font=TEXT_FONT,bg="#00CE1F")
-L_Overall_Team.place(x=0,y=0)
-Tactics_Frame2_Btn=tk.Button(Tactic_Team_Frame1,text='Tactics',font=BUTTON_FONT,command=tactic_frame)
-Tactics_Frame2_Btn.place(x=1200,y=670,width=300)
-Back_Menu_Tactic_Frame1=tk.Button(Tactic_Team_Frame1,text='Back',font=TEXT_FONT,command=previous_tactic_frame)
-Back_Menu_Tactic_Frame1.place(x=1200,y=750,width=300)
+L_Overall_Team=tk.Label(Tactic_Team_Header_Frame1,font=('bahnschrift',20,'bold'),bg="#0C7F1D",fg='#f6d30d')
+L_Overall_Team.place(x=30,y=15)
+Tactics_Frame2_Btn=tk.Button(Tactic_Team_Frame1,text='Tactics',font=('bahnschrift',20,'bold'),command=tactic_frame,bg='#f6d30d')
+Tactics_Frame2_Btn.place(x=1200,y=680,width=300,height=60)
+Back_Menu_Tactic_Frame1=tk.Button(Tactic_Team_Frame1,text='Back',font=('bahnschrift',20,'bold'),command=previous_tactic_frame,bg='#f6d30d')
+Back_Menu_Tactic_Frame1.place(x=1200,y=760,width=300,height=60)
 L_Team_Instruction_Sub=tk.Label(Tactic_Team_Frame2,text='Team Instruction',font=SUBTITLE_FONT,bg="#00CE1F")
 L_Team_Instruction_Sub.place(x=10,y=0)
 L_Mentality_Tactic_Frame2=tk.Label(Tactic_Team_Frame2,text='Mentality:',font=TEXT_FONT,bg="#00CE1F")
@@ -1420,13 +1444,13 @@ L_Away_Game.place(x=1100,y=55)
 L_IMG_Away_Game.place(x=1350,y=30)
 L_Home_Goal.place(x=510,y=50)
 L_Away_Goal.place(x=910,y=50)
-L_Starting_Players_Home.place(x=250,y=250)
-L_Starting_Players_Away.place(x=1050,y=250)
+L_Starting_Players_Home.place(x=200,y=250)
+L_Starting_Players_Away.place(x=950,y=250)
 
 for i in range(12):
     row=[]
     for j in range(10):
-        L_League_Menu=tk.Label(Menu_Frame,font=COMBO_FONT,fg=MENU_ITEM_FG,bg=MENU_BG)
+        L_League_Menu=tk.Label(Menu_Frame,font=COMBO_FONT_BOLD,fg='#f6d30d',bg=MENU_BG)
         L_League_Menu.place(x=x_x,y=y_y)
         row.append(L_League_Menu)
         x_x=x_x+130
@@ -1435,14 +1459,14 @@ for i in range(12):
             y_y=y_y+50
     League_Table.append(row)
 for i in range(10):
-    L_Subtitle_League=tk.Label(Menu_Frame,font=COMBO_FONT,fg=MENU_ITEM_FG,bg=MENU_BG)
+    L_Subtitle_League=tk.Label(Menu_Frame,font=COMBO_FONT_BOLD,fg='#f6d30d',bg=MENU_BG)
     L_Subtitle_League.place(x=x_x,y=35)
     l.append(L_Subtitle_League)
     x_x=x_x+130
 for i in range(10):
     l[i].config(text=titles[i])
 for i in range(15):
-    L_Player_Info=tk.Label(Player_Frame,font=TEXT_FONT,bg=MENU_BG,fg=MENU_ITEM_FG)
+    L_Player_Info=tk.Label(Player_Frame,font=TEXT_FONT_BOLD,bg=MENU_BG,fg='#f6d30d')
     L_Player_Info.place(x=x_x_x,y=y_y_y)
     Player_Info.append(L_Player_Info)
     y_y_y=y_y_y+100
@@ -1450,8 +1474,8 @@ for i in range(15):
         x_x_x=x_x_x+300
         y_y_y=130
 for i in range(8):
-    Tactics_Btn=tk.Button(Tactic_Team_Frame1,font=BUTTON_FONT,text=Tactics_List[i],command=lambda tc=Tactics_List[i]:players_formation(tc))
-    Tactics_Btn.place(x=x2,y=y2,width=300)
+    Tactics_Btn=tk.Button(Tactic_Team_Frame1,font=('bahnschrift',20,'bold'),text=Tactics_List[i],command=lambda tc=Tactics_List[i]:players_formation(tc),bg="#f6d30d")
+    Tactics_Btn.place(x=x2,y=y2,width=300,height=60)
     Tactics.append(Tactics_Btn)
     y2=y2+80
 
